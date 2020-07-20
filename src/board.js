@@ -35,6 +35,53 @@ class Board {
     }
 
     /**
+     * Sets the board to have the position indicated by FEN
+     * @param {string} FEN
+     */
+    _setFENPosition(FEN) {
+        this._piecesBoard = [];
+        let row = [];
+        const piecesMap = {
+            R: {color: 'white', piece: Rook},
+            r: {color: 'black', piece: Rook},
+            B: {color: 'white', piece: Bishop},
+            b: {color: 'black', piece: Bishop},
+            N: {color: 'white', piece: Knight},
+            n: {color: 'black', piece: Knight},
+            K: {color: 'white', piece: King},
+            k: {color: 'black', piece: King},
+            Q: {color: 'white', piece: Queen},
+            q: {color: 'black', piece: Queen},
+            P: {color: 'white', piece: Pawn},
+            p: {color: 'black', piece: Pawn}
+        }
+
+        for (let i = 0; i < FEN.length; ++i) {
+            if (FEN[i] === '/') {
+                this._piecesBoard.push(row);
+                row = [];
+                continue;
+            }
+
+            // TODO: remove this in the future when implementing full FEN
+            if (FEN[i] === ' ') break;
+
+            const piece = piecesMap[FEN[i]];
+            if (piece) {
+                row.push(new piece.piece(piece.color))
+            }
+
+            if (!isNaN(parseInt(FEN[i], 10))) {
+                for (let j = 0; j < parseInt(FEN[i], 10); ++j) {
+                    row.push(new NullPiece());
+                }
+            }
+        }
+
+        this._piecesBoard.push(row);
+    }
+
+    /**
      * Converts a given position in algebraic notation to row/column in matrix.
      * Examples: 'a8' -> 0, 0 / 'b6' -> 2, 1 / etc.
      * @param {string} algebraicPosition position in algebraic notation
@@ -79,7 +126,7 @@ class Board {
      * @param {string} position Position to be placed (in algebraic notation),
      * e.g.: 'e4', 'a1', etc.
      */
-    placePiece(piece, position) {
+    _placePiece(piece, position) {
         let [ row, column ] = this._algebraicToInts(position);
         this._piecesBoard[row][column] = piece;
     }
@@ -90,7 +137,7 @@ class Board {
      * e.g.: 'e4', 'a1', etc.
      * @returns piece at given position (in algebraic notation)
      */
-    getPiece(position) {
+    _getPiece(position) {
         let [ row, column ] = this._algebraicToInts(position);
         return (
             this._piecesBoard[row][column]

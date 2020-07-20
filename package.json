@@ -2,7 +2,6 @@
   "name": "js-crazychess-lib",
   "version": "1.0.0",
   "description": "Chess library for crazychess website",
-  "main": "main.js",
   "repository": "git@github.com:Guilherme-Vasconcelos/js-crazychess-lib.git",
   "author": "Guilherme-Vasconcelos",
   "license": "GPL3.0 or later",
