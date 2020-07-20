@@ -80,8 +80,8 @@ class Board {
      * e.g.: 'e4', 'a1', etc.
      */
     placePiece(piece, position) {
-        // @TODO: make this work, problem is the - '0' part. Same goes for below.
-        this._piecesBoard[8 - (position[1] - '0')][parseInt(position[0], 10) - 97] = piece;
+        let [ row, column ] = this._algebraicToInts(position);
+        this._piecesBoard[row][column] = piece;
     }
 
     /**
@@ -91,9 +91,9 @@ class Board {
      * @returns piece at given position (in algebraic notation)
      */
     getPiece(position) {
-        // @TODO: make this work
+        let [ row, column ] = this._algebraicToInts(position);
         return (
-            this._piecesBoard[8 - (position[1] - '0')][parseInt(position[0], 10) - 97]
+            this._piecesBoard[row][column]
         );
     }
 }

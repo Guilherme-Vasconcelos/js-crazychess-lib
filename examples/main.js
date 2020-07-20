@@ -7,9 +7,9 @@ let rook2 = new Rook('black');
 let queen = new Queen('white');
 let board = new Board();
 
-board._piecesBoard[0][0] = rook;
-board._piecesBoard[7][7] = rook2;
-board._piecesBoard[2][1] = queen;
+board.placePiece(rook, 'a1');
+board.placePiece(rook2, 'a8');
+board.placePiece(queen, 'h1');
 board.showBoard();
 
-console.log(board._intsToAlgebraic(2, 1));
+console.log(board.getPiece('a1'));
