@@ -2,7 +2,6 @@ class Piece {
     constructor() {
         this.legalSquares = [];
         this.name;
-        this.isNullPiece;
         this.color;
     }
 }
@@ -10,49 +9,49 @@ class Piece {
 class Rook extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a rook');
+        this.name = 'Rook';
     }
 }
 
 class Bishop extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a bishop');
+        this.name = 'Bishop';
     }
 }
 
 class Knight extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a knight');
+        this.name = 'Knight';
     }
 }
 
 class King extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a king');
+        this.name = 'King';
     }
 }
 
 class Queen extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a queen');
+        this.name = 'Queen';
     }
 }
 
 class Pawn extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a pawn');
+        this.name = 'Pawn';
     }
 }
 
 class NullPiece extends Piece {
     constructor() {
         super();
-        console.log('Hey, I am a nullpiece');
+        this.name = ' . ';
     }
 }
 
