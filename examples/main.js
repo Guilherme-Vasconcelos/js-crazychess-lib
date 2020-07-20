@@ -12,4 +12,4 @@ board._piecesBoard[7][7] = rook2;
 board._piecesBoard[2][1] = queen;
 board.showBoard();
 
-console.log(board._algebraicToInts('h6'));
+console.log(board._intsToAlgebraic(2, 1));

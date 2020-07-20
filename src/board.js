@@ -41,10 +41,12 @@ class Board {
      * @returns array of integers [row, column]
      */
     _algebraicToInts(algebraicPosition) {
-        if (algebraicPosition[0] < 'a' || algebraicPosition[0] > 'h') {
-            throw new Error('Algebraic positions must be between' +
-                ' \'a1\' and \'h8\'. You entered ' + algebraicPosition + '.');
+        if (algebraicPosition[0] < 'a' || algebraicPosition[0] > 'h'
+         || algebraicPosition[1] < '1' || algebraicPosition[1] > '8') {
+            throw new Error(`Algebraic positions must be between ` +
+                `'a1' and 'h8'. You entered ${algebraicPosition}.`);
         }
+
         let rowColumn = [];
         rowColumn.push(8 - parseInt(algebraicPosition[1], 10));
         rowColumn.push(algebraicPosition[0].charCodeAt(0) - 97);
@@ -56,9 +58,18 @@ class Board {
      * Examples: 0, 0 -> 'a8' / 2, 1 -> 'b6' / etc.
      * @param {int} row position's row (from 0 to 7)
      * @param {int} column position's column (from 0 to 7)
+     * @returns string with the corresponding algebraic notation
      */
     _intsToAlgebraic(row, column) {
-
+        if (row < 0 || row > 7 || column < 0 || column > 7) {
+            throw new Error(`Board rows and columns go from 0 to 7 each. ` +
+                 `You entered: [${row}, ${column}].`);
+        }
+        
+        let algebraicPosition = '';
+        algebraicPosition += String.fromCharCode(column + 97);
+        algebraicPosition += (8 - row).toString();
+        return algebraicPosition;
     }
 
     /**

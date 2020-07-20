@@ -16,8 +16,8 @@ class Piece {
                 this.color = 'black';
                 break;
             default:
-                throw new Error('Invalid color \'' + color + '\'.' +
-                    ' A chess piece must either be \'white\' or \'black\'.');   
+                throw new Error(`Invalid color '${color}'. A chess piece ` +
+                    `must be either 'white' or 'black'.`);  
         }
     }
 }
