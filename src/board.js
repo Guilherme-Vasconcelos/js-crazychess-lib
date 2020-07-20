@@ -11,9 +11,9 @@ class Board {
     constructor() {
         this._piecesBoard = [];
         for (let i = 0; i < 8; ++i) {
-            let currentRow = []
+            const currentRow = []
             for (let j = 0; j < 8; ++j) {
-                let cPiece = new NullPiece();
+                const cPiece = new NullPiece();
                 currentRow.push(cPiece);
             }
             this._piecesBoard.push(currentRow);
@@ -35,6 +35,33 @@ class Board {
     }
 
     /**
+     * Converts a given position in algebraic notation to row/column in matrix.
+     * Examples: 'a8' -> 0, 0 / 'b6' -> 2, 1 / etc.
+     * @param {string} algebraicPosition position in algebraic notation
+     * @returns array of integers [row, column]
+     */
+    _algebraicToInts(algebraicPosition) {
+        if (algebraicPosition[0] < 'a' || algebraicPosition[0] > 'h') {
+            throw new Error('Algebraic positions must be between' +
+                ' \'a1\' and \'h8\'. You entered ' + algebraicPosition + '.');
+        }
+        let rowColumn = [];
+        rowColumn.push(8 - parseInt(algebraicPosition[1], 10));
+        rowColumn.push(algebraicPosition[0].charCodeAt(0) - 97);
+        return rowColumn;
+    }
+
+    /**
+     * Converts a given position in row, column to algebraic notation.
+     * Examples: 0, 0 -> 'a8' / 2, 1 -> 'b6' / etc.
+     * @param {int} row position's row (from 0 to 7)
+     * @param {int} column position's column (from 0 to 7)
+     */
+    _intsToAlgebraic(row, column) {
+
+    }
+
+    /**
      * Places a piece at a given position
      * @param piece Piece to be placed. This must belong to a valid Piece class
      * such as Rook, Bishop, etc. 
@@ -50,6 +77,7 @@ class Board {
      * Returns a piece from a given position
      * @param {string} position Position to be searched (in algebraic notation)
      * e.g.: 'e4', 'a1', etc.
+     * @returns piece at given position (in algebraic notation)
      */
     getPiece(position) {
         // @TODO: make this work

@@ -1,11 +1,15 @@
 import Board from '../src/board.js';
 // REMOVE THIS LATER
-import { Rook } from '../src/pieces.js';
+import { Rook, Queen } from '../src/pieces.js';
 
 let rook = new Rook('white');
+let rook2 = new Rook('black');
+let queen = new Queen('white');
 let board = new Board();
 
-board.placePiece(rook, 'e4');
+board._piecesBoard[0][0] = rook;
+board._piecesBoard[7][7] = rook2;
+board._piecesBoard[2][1] = queen;
 board.showBoard();
-console.log(board.getPiece('e5'));
-console.log(board._piecesBoard[4][4]);
+
+console.log(board._algebraicToInts('h6'));

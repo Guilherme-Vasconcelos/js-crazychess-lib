@@ -5,10 +5,20 @@ class Piece {
     /**
      * Creates a chess piece with available legal squares to move, name, etc
      */
-    constructor() {
-        this.legalSquares = [];
-        this.name;
-        this.color;
+    constructor(color) {
+        this.legalSquares = new Set();
+        this.name = null;
+        switch (color) {
+            case 'white':
+                this.color = 'white';
+                break;
+            case 'black':
+                this.color = 'black';
+                break;
+            default:
+                throw new Error('Invalid color \'' + color + '\'.' +
+                    ' A chess piece must either be \'white\' or \'black\'.');   
+        }
     }
 }
 
@@ -22,17 +32,14 @@ class Rook extends Piece {
      * Your chess piece must be either 'white' or 'black'. 
      */
     constructor(color) {
-        super();
-        switch (color) {
+        super(color);
+        switch (this.color) {
             case 'white':
                 this.name = 'R';
                 break;
             case 'black':
                 this.name = 'r';
                 break;
-            default:
-                throw new Error('Invalid color ' + color + '. A chess piece' +
-                    'must either be \'white\' or \'black\'.');  
         }
     }
 }
@@ -47,17 +54,14 @@ class Bishop extends Piece {
      * Your chess piece must be either 'white' or 'black'. 
      */
     constructor(color) {
-        super();
-        switch (color) {
+        super(color);
+        switch (this.color) {
             case 'white':
                 this.name = 'B';
                 break;
             case 'black':
                 this.name = 'b';
                 break;
-            default:
-                throw new Error('Invalid color ' + color + '. A chess piece' +
-                    'must either be \'white\' or \'black\'.');  
         }
     }
 }
@@ -72,17 +76,14 @@ class Knight extends Piece {
      * Your chess piece must be either 'white' or 'black'. 
      */
     constructor(color) {
-        super();
-        switch (color) {
+        super(color);
+        switch (this.color) {
             case 'white':
                 this.name = 'N';
                 break;
             case 'black':
                 this.name = 'n';
                 break;
-            default:
-                throw new Error('Invalid color ' + color + '. A chess piece' +
-                    'must either be \'white\' or \'black\'.');  
         }
     }
 }
@@ -97,17 +98,14 @@ class King extends Piece {
      * Your chess piece must be either 'white' or 'black'. 
      */
     constructor(color) {
-        super();
-        switch (color) {
+        super(color);
+        switch (this.color) {
             case 'white':
                 this.name = 'K';
                 break;
             case 'black':
                 this.name = 'k';
                 break;
-            default:
-                throw new Error('Invalid color ' + color + '. A chess piece' +
-                    'must either be \'white\' or \'black\'.');  
         }
     }
 }
@@ -122,17 +120,14 @@ class Queen extends Piece {
      * Your chess piece must be either 'white' or 'black'. 
      */
     constructor(color) {
-        super();
-        switch (color) {
+        super(color);
+        switch (this.color) {
             case 'white':
                 this.name = 'Q';
                 break;
             case 'black':
                 this.name = 'q';
                 break;
-            default:
-                throw new Error('Invalid color ' + color + '. A chess piece' +
-                    'must either be \'white\' or \'black\'.');  
         }
     }
 }
@@ -147,17 +142,14 @@ class Pawn extends Piece {
      * Your chess piece must be either 'white' or 'black'. 
      */
     constructor(color) {
-        super();
-        switch (color) {
+        super(color);
+        switch (this.color) {
             case 'white':
                 this.name = 'P';
                 break;
             case 'black':
                 this.name = 'p';
                 break;
-            default:
-                throw new Error('Invalid color ' + color + '. A chess piece' +
-                    'must either be \'white\' or \'black\'.');  
         }
     }
 }
@@ -169,8 +161,13 @@ class Pawn extends Piece {
  */
 class NullPiece extends Piece {
     constructor() {
-        super();
+        // Parent constructor only accepts chess pieces that are either white
+        // or black, so we need to pass one of these arguments even if we
+        // will change the color right after.
+        super('white');
         this.name = '.';
+        this.color = null;
+        this.legalSquares = null;
     }
 }
 

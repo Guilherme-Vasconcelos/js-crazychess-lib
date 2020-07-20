@@ -2,8 +2,8 @@
 
 ### What is js-crazychess-lib?
 
-js-crazychess-lib is highly customizable chess library built for chess variants.
-Before considering using this library, you should be aware that since it is meant to be used in a website in which there are only chess variants, not all rules have been implemented in this library (check the Features section to be sure about what you can find here). If you want to have a traditional chess game, you should not use js-crazychess-lib.
+js-crazychess-lib is highly customizable chess library built for chess variants at crazychess website.
+Before considering using this library, you should be aware that since it is meant to be used in a website in which there are only chess variants, it may not be as complete as a regular library, even though it will support regular chess in the future.
 
 ### Features
 
