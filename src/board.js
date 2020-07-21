@@ -6,19 +6,10 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
  */
 class Board {
     /**
-     * Creates a board (8x8 matrix) and fills all positions with a NullPiece.
-     * @TODO the board should take as input the initial position FEN.
+     * Creates a board (8x8 matrix) with the given FEN.
      */
-    constructor() {
-        this._piecesBoard = [];
-        for (let i = 0; i < 8; ++i) {
-            const currentRow = []
-            for (let j = 0; j < 8; ++j) {
-                const cPiece = new NullPiece();
-                currentRow.push(cPiece);
-            }
-            this._piecesBoard.push(currentRow);
-        }
+    constructor(FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+        this._setFENPosition(FEN);
     }
 
     /**
