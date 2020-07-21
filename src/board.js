@@ -185,7 +185,8 @@ class Board {
         switch (pieceToUpdate.name) {
             case 'R':
             case 'r':
-                // TODO: In the future, rook will need to have castling
+                // TODO: In the future rook will need to have castling
+
                 for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
                     if (rowUp > 7) break;
                     if (this._piecesBoard[rowUp][column].name === '.') {
@@ -209,7 +210,7 @@ class Board {
                 }
 
                 for (let colRight = column + 1; colRight < 8; ++colRight) {
-                    if (colRight > 8) break;
+                    if (colRight > 7) break;
                     if (this._piecesBoard[row][colRight].name === '.') {
                         pieceToUpdate.legalSquares.add(
                             this._intsToAlgebraic(row, colRight)
@@ -232,20 +233,85 @@ class Board {
 
                 console.log(pieceToUpdate.legalSquares);
                 break;
+            
             case 'B':
             case 'b':
+                for (
+                    let rowUp = row + 1, colRight = column + 1; 
+                    rowUp < 8 && colRight < 8;
+                    ++rowUp, ++colRight
+                ) {
+                    if (rowUp > 7 || colRight > 7) break;
+                    if (this._piecesBoard[rowUp][colRight].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(rowUp, colRight)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                for (
+                    let rowUp = row + 1, colLeft = column - 1;
+                    rowUp < 8 && colLeft > -1;
+                    ++rowUp, --colLeft
+                ) {
+                    if (rowUp > 7 || colLeft < 0) break;
+                    if (this._piecesBoard[rowUp][colLeft].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(rowUp, colLeft)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                for (
+                    let rowDown = row - 1, colRight = column + 1;
+                    rowDown > -1 && colRight < 8;
+                    --rowDown, ++colRight
+                ) {
+                    if (rowDown < 0 || colRight > 7) break;
+                    if (this._piecesBoard[rowDown][colRight].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(rowDown, colRight)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                for (
+                    let rowDown = row - 1, colLeft = column - 1;
+                    rowDown > -1 && colLeft > -1;
+                    --rowDown, --colLeft
+                ) {
+                    if (rowDown < 0 || colLeft < 0) break;
+                    if (this._piecesBoard[rowDown][colLeft].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(rowDown, colLeft)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                console.log(pieceToUpdate.legalSquares);
                 break;
+
             case 'N':
             case 'n':
                 break;
             case 'K':
             case 'k':
+                // TODO: In the future king will need to have check/castle
                 break;
             case 'Q':
             case 'q':
                 break;
             case 'P':
             case 'p':
+                // TODO: In the future pawn will need to have en passant
                 break;
         }
     }
