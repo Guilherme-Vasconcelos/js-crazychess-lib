@@ -144,7 +144,7 @@ class Board {
     _updateLegalSquaresGoUp(initialPosition) {
         const [ row, column ] = _algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
-        legalSquaresFound = new Set();
+        const legalSquaresFound = new Set();
         for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
             if (rowUp > 7) break;
             if (this._piecesBoard[rowUp][column].name === '.') {
@@ -168,7 +168,7 @@ class Board {
     _updateLegalSquaresGoDown(initialPosition) {
         const [ row, column ] = _algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
-        legalSquaresFound = new Set();
+        const legalSquaresFound = new Set();
         for (let rowDown = row - 1; rowDown > -1; --rowDown) {
             if (rowDown < 0) break;
             if (this._piecesBoard[rowDown][column].name === '.') {
@@ -190,7 +190,22 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoLeft(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        const legalSquaresFound = new Set();
+        for (let colLeft = column - 1; colLeft > -1; --colLeft) {
+            if (colLeft < 0) break;
+            if (this._piecesBoard[row][colLeft].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(row, colLeft));
+            } else if (this._piecesBoard[row][colLeft].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(row, colLeft));
+                break;
+            } else {
+                break;
+            }
+        }
 
+        return legalSquaresFound;
     }
 
     /**
@@ -199,7 +214,22 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoRight(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        const legalSquaresFound = new Set();
+        for (let colRight = column + 1; colRight < 8; ++colRight) {
+            if (colRight > 7) break;
+            if (this._piecesBoard[row][colRight].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(row, colRight));
+            } else if (this._piecesBoard[row][colRight].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(row, colRight));
+                break;
+            } else {
+                break;
+            }
+        }
 
+        return legalSquaresFound;
     }
 
     /**
@@ -208,7 +238,6 @@ class Board {
      */
     _updateLegalSquares(position) {
         const pieceToUpdate = this._getPiece(position);
-        const [ row, column ] = _algebraicToInts(position);
         if (pieceToUpdate.name === '.') {
             throw new Error('Given position does not contain a piece.');
         }
@@ -217,61 +246,23 @@ class Board {
             case 'R':
             case 'r':
                 // TODO: In the future rook will need to have castling
-                // TODO: rook can move to a occupied square as long as
-                // it is occupied by a piece of opposite color
 
-                for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
-                    if (rowUp > 7) break;
-                    if (this._piecesBoard[rowUp][column].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(rowUp, column)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                for (let rowDown = row - 1; rowDown > -1; --rowDown) {
-                    if (rowDown < 0) break;
-                    if (this._piecesBoard[rowDown][column].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(rowDown, column)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                for (let colRight = column + 1; colRight < 8; ++colRight) {
-                    if (colRight > 7) break;
-                    if (this._piecesBoard[row][colRight].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(row, colRight)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                for (let colLeft = column - 1; colLeft > -1; --colLeft) {
-                    if (colLeft < 0) break;
-                    if (this._piecesBoard[row][colLeft].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(row, colLeft)
-                        );
-                    } else {
-                        break;
-                    }
-                }
+                pieceToUpdate.legalSquares = new Set([
+                    ...this._updateLegalSquaresGoUp(position),
+                    ...this._updateLegalSquaresGoDown(position),
+                    ...this._updateLegalSquaresGoLeft(position),
+                    ...this._updateLegalSquaresGoRight(position),
+                ]);
 
                 console.log(pieceToUpdate.legalSquares);
+
                 break;
             
             case 'B':
             case 'b':
                 // TODO: bishop can move to a occupied square as long as
                 // it is occupied by a piece of opposite color
-                for (
+                /*for (
                     let rowUp = row + 1, colRight = column + 1; 
                     rowUp < 8 && colRight < 8;
                     ++rowUp, ++colRight
@@ -331,7 +322,7 @@ class Board {
                     }
                 }
 
-                console.log(pieceToUpdate.legalSquares);
+                console.log(pieceToUpdate.legalSquares);*/
                 break;
 
             case 'N':
