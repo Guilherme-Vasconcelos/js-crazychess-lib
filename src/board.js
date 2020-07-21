@@ -170,6 +170,85 @@ class Board {
             this._piecesBoard[row][column]
         );
     }
+
+    /**
+     * Updates the legal squares for whatever piece is in the given position
+     * @param {string} position position in algebraic notation
+     */
+    _updateLegalSquares(position) {
+        const pieceToUpdate = this._getPiece(position);
+        const [ row, column ] = this._algebraicToInts(position);
+        if (pieceToUpdate.name === '.') {
+            throw new Error('Given position does not contain a piece.');
+        }
+
+        switch (pieceToUpdate.name) {
+            case 'R':
+            case 'r':
+                // TODO: In the future, rook will need to have castling
+                for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
+                    if (rowUp > 7) break;
+                    if (this._piecesBoard[rowUp][column].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(rowUp, column)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                for (let rowDown = row - 1; rowDown > -1; --rowDown) {
+                    if (rowDown < 0) break;
+                    if (this._piecesBoard[rowDown][column].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(rowDown, column)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                for (let colRight = column + 1; colRight < 8; ++colRight) {
+                    if (colRight > 8) break;
+                    if (this._piecesBoard[row][colRight].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(row, colRight)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                for (let colLeft = column - 1; colLeft > -1; --colLeft) {
+                    if (colLeft < 0) break;
+                    if (this._piecesBoard[row][colLeft].name === '.') {
+                        pieceToUpdate.legalSquares.add(
+                            this._intsToAlgebraic(row, colLeft)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                console.log(pieceToUpdate.legalSquares);
+                break;
+            case 'B':
+            case 'b':
+                break;
+            case 'N':
+            case 'n':
+                break;
+            case 'K':
+            case 'k':
+                break;
+            case 'Q':
+            case 'q':
+                break;
+            case 'P':
+            case 'p':
+                break;
+        }
+    }
 }
 
 export default Board;
