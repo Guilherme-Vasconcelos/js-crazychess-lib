@@ -1,5 +1,6 @@
 import Board from '../src/board.js';
 import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
+import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from '../src/helpers.js';
 
 // https://jestjs.io/docs/en/expect
 
@@ -16,7 +17,6 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
  */
 
 test('Valid ints to algebraic conversions', () => {
-    const board = new Board();
     const valuesForColumns = {
         a: 0, b: 1, c: 2,
         d: 3, e: 4, f: 5,
@@ -30,12 +30,11 @@ test('Valid ints to algebraic conversions', () => {
     });
 
     positions.forEach(([algebraicPosition, row, column]) => {
-        expect(board._intsToAlgebraic(row, column)).toBe(algebraicPosition);
+        expect(_intsToAlgebraic(row, column)).toBe(algebraicPosition);
     });
 });
 
 test('Valid algebraic to ints conversions', () => {
-    const board = new Board();
     const valuesForColumns = {
         a: 0, b: 1, c: 2,
         d: 3, e: 4, f: 5,
@@ -49,13 +48,12 @@ test('Valid algebraic to ints conversions', () => {
     });
 
     positions.forEach(([algebraicPosition, row, column]) => {
-        expect(board._algebraicToInts(algebraicPosition)[0]).toBe(row);
-        expect(board._algebraicToInts(algebraicPosition)[1]).toBe(column);
+        expect(_algebraicToInts(algebraicPosition)[0]).toBe(row);
+        expect(_algebraicToInts(algebraicPosition)[1]).toBe(column);
     });
 });
 
 test('Code handles invalid ints to algebraic conversions', () => {
-    const board = new Board();
     let positions = [
         [8, 8], [-1, 0], [3, 12],
         [null, null], [undefined, undefined],
@@ -65,13 +63,12 @@ test('Code handles invalid ints to algebraic conversions', () => {
 
     positions.forEach(([row, column]) => {
         expect(() => {
-            board._intsToAlgebraic(row, column);
+            _intsToAlgebraic(row, column);
         }).toThrow();
     });
 });
 
 test('Code handles invalid algebraic to ints conversions', () => {
-    const board = new Board();
     let positions = [
         'a0', 'a9', 'b-1',
         'j3', 'j0', 'm5',
@@ -82,7 +79,7 @@ test('Code handles invalid algebraic to ints conversions', () => {
 
     positions.forEach(position => {
         expect(() => {
-            board._algebraicToInts(position);
+            _algebraicToInts(position);
         }).toThrow();
     });
 });

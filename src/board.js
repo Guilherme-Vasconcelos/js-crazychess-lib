@@ -1,5 +1,6 @@
 import { Rook, Bishop, Knight, King, Queen, Pawn, NullPiece } from './pieces.js';
 import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
+import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from './helpers.js';
 
 /**
  * Class used to represent the chess board.
@@ -105,48 +106,6 @@ class Board {
     }
 
     /**
-     * Converts a given position in algebraic notation to row/column in matrix.
-     * Examples: 'a8' -> 0, 0 / 'b6' -> 2, 1 / etc.
-     * @param {string} algebraicPosition position in algebraic notation
-     * @returns array of integers [row, column]
-     */
-    _algebraicToInts(algebraicPosition) {
-        if (algebraicPosition[0] < 'a' || algebraicPosition[0] > 'h'
-         || algebraicPosition[1] < '1' || algebraicPosition[1] > '8') {
-            throw new Error(`Algebraic positions must be between ` +
-                `'a1' and 'h8'. You entered ${algebraicPosition}.`);
-        }
-
-        let rowColumn = [];
-        rowColumn.push(8 - parseInt(algebraicPosition[1], 10));
-        rowColumn.push(algebraicPosition[0].charCodeAt(0) - 97);
-        return rowColumn;
-    }
-
-    /**
-     * Converts a given position in row, column to algebraic notation.
-     * Examples: 0, 0 -> 'a8' / 2, 1 -> 'b6' / etc.
-     * @param {int} row position's row (from 0 to 7)
-     * @param {int} column position's column (from 0 to 7)
-     * @returns string with the corresponding algebraic notation
-     */
-    _intsToAlgebraic(row, column) {
-        if (!Number.isInteger(row) || !Number.isInteger(column)) {
-            throw new Error(`Rows and columns must be integers. ` +
-                `You entered: [${row}, ${column}].`);
-        }
-        else if (row < 0 || row > 7 || column < 0 || column > 7) {
-            throw new Error(`Board rows and columns go from 0 to 7 each. ` +
-                 `You entered: [${row}, ${column}].`);
-        }
-        
-        let algebraicPosition = '';
-        algebraicPosition += String.fromCharCode(column + 97);
-        algebraicPosition += (8 - row).toString();
-        return algebraicPosition;
-    }
-
-    /**
      * Places a piece at a given position
      * @param piece Piece to be placed. This must belong to a valid Piece class
      * such as Rook, Bishop, etc. 
@@ -154,7 +113,7 @@ class Board {
      * e.g.: 'e4', 'a1', etc.
      */
     _placePiece(piece, position) {
-        let [ row, column ] = this._algebraicToInts(position);
+        let [ row, column ] = _algebraicToInts(position);
         this._piecesBoard[row][column] = piece;
     }
 
@@ -165,7 +124,7 @@ class Board {
      * @returns piece at given position (in algebraic notation)
      */
     _getPiece(position) {
-        let [ row, column ] = this._algebraicToInts(position);
+        let [ row, column ] = _algebraicToInts(position);
         return (
             this._piecesBoard[row][column]
         );
@@ -177,7 +136,7 @@ class Board {
      */
     _updateLegalSquares(position) {
         const pieceToUpdate = this._getPiece(position);
-        const [ row, column ] = this._algebraicToInts(position);
+        const [ row, column ] = _algebraicToInts(position);
         if (pieceToUpdate.name === '.') {
             throw new Error('Given position does not contain a piece.');
         }
@@ -193,7 +152,7 @@ class Board {
                     if (rowUp > 7) break;
                     if (this._piecesBoard[rowUp][column].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(rowUp, column)
+                            _intsToAlgebraic(rowUp, column)
                         );
                     } else {
                         break;
@@ -204,7 +163,7 @@ class Board {
                     if (rowDown < 0) break;
                     if (this._piecesBoard[rowDown][column].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(rowDown, column)
+                            _intsToAlgebraic(rowDown, column)
                         );
                     } else {
                         break;
@@ -215,7 +174,7 @@ class Board {
                     if (colRight > 7) break;
                     if (this._piecesBoard[row][colRight].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(row, colRight)
+                            _intsToAlgebraic(row, colRight)
                         );
                     } else {
                         break;
@@ -226,7 +185,7 @@ class Board {
                     if (colLeft < 0) break;
                     if (this._piecesBoard[row][colLeft].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(row, colLeft)
+                            _intsToAlgebraic(row, colLeft)
                         );
                     } else {
                         break;
@@ -248,7 +207,7 @@ class Board {
                     if (rowUp > 7 || colRight > 7) break;
                     if (this._piecesBoard[rowUp][colRight].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(rowUp, colRight)
+                            _intsToAlgebraic(rowUp, colRight)
                         );
                     } else {
                         break;
@@ -263,7 +222,7 @@ class Board {
                     if (rowUp > 7 || colLeft < 0) break;
                     if (this._piecesBoard[rowUp][colLeft].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(rowUp, colLeft)
+                            _intsToAlgebraic(rowUp, colLeft)
                         );
                     } else {
                         break;
@@ -278,7 +237,7 @@ class Board {
                     if (rowDown < 0 || colRight > 7) break;
                     if (this._piecesBoard[rowDown][colRight].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(rowDown, colRight)
+                            _intsToAlgebraic(rowDown, colRight)
                         );
                     } else {
                         break;
@@ -293,7 +252,7 @@ class Board {
                     if (rowDown < 0 || colLeft < 0) break;
                     if (this._piecesBoard[rowDown][colLeft].name === '.') {
                         pieceToUpdate.legalSquares.add(
-                            this._intsToAlgebraic(rowDown, colLeft)
+                            _intsToAlgebraic(rowDown, colLeft)
                         );
                     } else {
                         break;
