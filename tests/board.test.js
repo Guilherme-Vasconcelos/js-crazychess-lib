@@ -10,6 +10,9 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
  * - Code handles invalid ints to algebraic conversions
  * - Code handles invalid algebraic to ints conversions
  * - Initial positions
+ * - (TODO) Place pieces
+ * - (TODO) Get pieces
+ * - (TODO movement tests
  */
 
 test('Valid ints to algebraic conversions', () => {
@@ -59,11 +62,12 @@ test('Code handles invalid ints to algebraic conversions', () => {
         ['_', '+'], ['a', 15], [15, 'b'],
         ['hey', 7], [2, 'hey'], [-15, -15]
     ];
-    expect(() => {
-        positions.forEach(([row, column]) => {
+
+    positions.forEach(([row, column]) => {
+        expect(() => {
             board._intsToAlgebraic(row, column);
-        });
-    }).toThrow();
+        }).toThrow();
+    });
 });
 
 test('Code handles invalid algebraic to ints conversions', () => {
