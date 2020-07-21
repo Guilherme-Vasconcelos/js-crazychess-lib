@@ -186,6 +186,8 @@ class Board {
             case 'R':
             case 'r':
                 // TODO: In the future rook will need to have castling
+                // TODO: rook can move to a occupied square as long as
+                // it is occupied by a piece of opposite color
 
                 for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
                     if (rowUp > 7) break;
@@ -236,6 +238,8 @@ class Board {
             
             case 'B':
             case 'b':
+                // TODO: bishop can move to a occupied square as long as
+                // it is occupied by a piece of opposite color
                 for (
                     let rowUp = row + 1, colRight = column + 1; 
                     rowUp < 8 && colRight < 8;
@@ -301,6 +305,20 @@ class Board {
 
             case 'N':
             case 'n':
+                // TODO: knight can move to a occupied square as long as
+                // it is occupied by a piece of opposite color
+
+                let newPositions = [
+                    [row + 2, column + 1], [row + 2, column - 1],
+                    [row - 2, column + 1], [row - 2, column - 1],
+                    [row + 1, column + 2], [row - 1, column + 2],
+                    [row + 1, column - 2], [row - 1, column - 2]
+                ];
+
+                newPositions = newPositions.filter(([newRow, newColumn]) =>
+                    (newRow < 8 && newRow > -1) && (newColumn < 8 && newColumn > -1)
+                );
+            
                 break;
             case 'K':
             case 'k':
