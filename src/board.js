@@ -24,11 +24,18 @@ class Board {
      * is actually legal before moving.
      */
     move(initialSquare, targetSquare) {
-        let pieceToMove = this._getPiece(initialSquare);
+        const pieceToMove = this._getPiece(initialSquare);
         if (pieceToMove.name === '.') {
             throw new Error(`Initial square ${initialSquare} does not ` +
                 `contain a piece.`);
         }
+
+        /**
+         * pseudo-code:
+         * pieceToMove._updateLegalMoves()
+         * if targetSquare is not in pieceToMove.legalMoves then throw error
+         * else (code below):
+         */
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);

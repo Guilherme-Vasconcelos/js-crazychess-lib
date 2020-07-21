@@ -5,11 +5,35 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
 
 /**
  * Current tests:
+ * - Valid ints to algebraic conversions
+ * - (TODO) Valid algebraic to ints conversions
+ * - (TODO) Invalid ints to algebraic conversions
+ * - (TODO) Invalid algebraic to ints conversions
  * - Valid initial positions
+ * - (TODO) Invalid initial positions
  */
 
+test('Valid ints to algebraic conversions', () => {
+    const board = new Board();
+    const valuesForColumns = {
+        a: 0, b: 1, c: 2,
+        d: 3, e: 4, f: 5,
+        g: 6, h: 7
+    }
+    let positions = []
+    Object.keys(valuesForColumns).forEach(value => {
+        for (let i = 8; i > 0; --i) {
+            positions.push([`${value}${i}`, 8 - i, valuesForColumns[value]]);
+        }
+    });
+
+    positions.forEach(([algebraicPosition, row, column]) => {
+        expect(board._intsToAlgebraic(row, column)).toBe(algebraicPosition);
+    });
+});
+
 test('Valid initial positions', () => {
-    let board = new Board();
+    const board = new Board();
     const coordsPositionsWhitePieces = [
         // White pieces
         ['a1', 'R'], ['b1', 'N'], ['c1', 'B'], ['d1', 'Q'],
