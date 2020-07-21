@@ -6,7 +6,8 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
  */
 class Board {
     /**
-     * Creates a board (8x8 matrix) with the given FEN.
+     * Creates a board (8x8 matrix) with the given FEN. If you do not supply
+     * an initial FEN, the board will start at the initial position.
      */
     constructor(FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
         this._setFENPosition(FEN);
@@ -28,7 +29,7 @@ class Board {
 
     /**
      * Sets the board to have the position indicated by FEN
-     * @param {string} FEN
+     * @param {string} FEN FEN for the position to be set
      */
     _setFENPosition(FEN) {
         this._piecesBoard = [];
@@ -55,7 +56,9 @@ class Board {
                 continue;
             }
 
-            // TODO: remove this in the future when implementing full FEN
+            // TODO: adapt this in the future when implementing full FEN, as
+            // the data after the space is also important to the game (but not
+            // important if you just want the position itself).
             if (FEN[i] === ' ') break;
 
             const currentPiece = piecesMap[FEN[i]];
