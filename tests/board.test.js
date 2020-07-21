@@ -6,11 +6,10 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
 /**
  * Current tests:
  * - Valid ints to algebraic conversions
- * - (TODO) Valid algebraic to ints conversions
- * - (TODO) Invalid ints to algebraic conversions
- * - (TODO) Invalid algebraic to ints conversions
- * - Valid initial positions
- * - (TODO) Invalid initial positions
+ * - Valid algebraic to ints conversions
+ * - Code handles invalid ints to algebraic conversions
+ * - Code handles invalid algebraic to ints conversions
+ * - Initial positions
  */
 
 test('Valid ints to algebraic conversions', () => {
@@ -32,7 +31,59 @@ test('Valid ints to algebraic conversions', () => {
     });
 });
 
-test('Valid initial positions', () => {
+test('Valid algebraic to ints conversions', () => {
+    const board = new Board();
+    const valuesForColumns = {
+        a: 0, b: 1, c: 2,
+        d: 3, e: 4, f: 5,
+        g: 6, h: 7
+    }
+    let positions = []
+    Object.keys(valuesForColumns).forEach(value => {
+        for (let i = 8; i > 0; --i) {
+            positions.push([`${value}${i}`, 8 - i, valuesForColumns[value]]);
+        }
+    });
+
+    positions.forEach(([algebraicPosition, row, column]) => {
+        expect(board._algebraicToInts(algebraicPosition)[0]).toBe(row);
+        expect(board._algebraicToInts(algebraicPosition)[1]).toBe(column);
+    });
+});
+
+test('Code handles invalid ints to algebraic conversions', () => {
+    const board = new Board();
+    let positions = [
+        [8, 8], [-1, 0], [3, 12],
+        [null, null], [undefined, undefined],
+        ['_', '+'], ['a', 15], [15, 'b'],
+        ['hey', 7], [2, 'hey'], [-15, -15]
+    ];
+    expect(() => {
+        positions.forEach(([row, column]) => {
+            board._intsToAlgebraic(row, column);
+        });
+    }).toThrow();
+});
+
+test('Code handles invalid algebraic to ints conversions', () => {
+    const board = new Board();
+    let positions = [
+        'a0', 'a9', 'b-1',
+        'j3', 'j0', 'm5',
+        '_', '+', '-',
+        15, 67, -1, undefined,
+        null
+    ];
+
+    positions.forEach(position => {
+        expect(() => {
+            board._algebraicToInts(position);
+        }).toThrow();
+    });
+});
+
+test('Initial positions', () => {
     const board = new Board();
     const coordsPositionsWhitePieces = [
         // White pieces
