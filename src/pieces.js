@@ -1,3 +1,5 @@
+import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
+
 /**
  * Base class for Piece classes. Should not be used directly by the user.
  */
@@ -9,11 +11,11 @@ class Piece {
         this.legalSquares = new Set();
         this.name = null;
         switch (color) {
-            case 'white':
-                this.color = 'white';
+            case WHITE_PIECE_COLOR:
+                this.color = WHITE_PIECE_COLOR;
                 break;
-            case 'black':
-                this.color = 'black';
+            case BLACK_PIECE_COLOR:
+                this.color = BLACK_PIECE_COLOR;
                 break;
             default:
                 throw new Error(`Invalid color '${color}'. A chess piece ` +
@@ -34,10 +36,10 @@ class Rook extends Piece {
     constructor(color) {
         super(color);
         switch (this.color) {
-            case 'white':
+            case WHITE_PIECE_COLOR:
                 this.name = 'R';
                 break;
-            case 'black':
+            case BLACK_PIECE_COLOR:
                 this.name = 'r';
                 break;
         }
@@ -56,10 +58,10 @@ class Bishop extends Piece {
     constructor(color) {
         super(color);
         switch (this.color) {
-            case 'white':
+            case WHITE_PIECE_COLOR:
                 this.name = 'B';
                 break;
-            case 'black':
+            case BLACK_PIECE_COLOR:
                 this.name = 'b';
                 break;
         }
@@ -78,10 +80,10 @@ class Knight extends Piece {
     constructor(color) {
         super(color);
         switch (this.color) {
-            case 'white':
+            case WHITE_PIECE_COLOR:
                 this.name = 'N';
                 break;
-            case 'black':
+            case BLACK_PIECE_COLOR:
                 this.name = 'n';
                 break;
         }
@@ -100,10 +102,10 @@ class King extends Piece {
     constructor(color) {
         super(color);
         switch (this.color) {
-            case 'white':
+            case WHITE_PIECE_COLOR:
                 this.name = 'K';
                 break;
-            case 'black':
+            case BLACK_PIECE_COLOR:
                 this.name = 'k';
                 break;
         }
@@ -122,10 +124,10 @@ class Queen extends Piece {
     constructor(color) {
         super(color);
         switch (this.color) {
-            case 'white':
+            case WHITE_PIECE_COLOR:
                 this.name = 'Q';
                 break;
-            case 'black':
+            case BLACK_PIECE_COLOR:
                 this.name = 'q';
                 break;
         }
@@ -144,10 +146,10 @@ class Pawn extends Piece {
     constructor(color) {
         super(color);
         switch (this.color) {
-            case 'white':
+            case WHITE_PIECE_COLOR:
                 this.name = 'P';
                 break;
-            case 'black':
+            case BLACK_PIECE_COLOR:
                 this.name = 'p';
                 break;
         }
@@ -164,7 +166,7 @@ class NullPiece extends Piece {
         // Parent constructor only accepts chess pieces that are either white
         // or black, so we need to pass one of these arguments even if we
         // will change the color right after.
-        super('white');
+        super(WHITE_PIECE_COLOR);
         this.name = '.';
         this.color = null;
         this.legalSquares = null;

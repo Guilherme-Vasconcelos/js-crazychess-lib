@@ -1,4 +1,5 @@
 import { Rook, Bishop, Knight, King, Queen, Pawn, NullPiece } from './pieces.js';
+import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
 
 /**
  * Class used to represent the chess board.
@@ -42,18 +43,18 @@ class Board {
         this._piecesBoard = [];
         let row = [];
         const piecesMap = {
-            R: {color: 'white', piece: Rook},
-            r: {color: 'black', piece: Rook},
-            B: {color: 'white', piece: Bishop},
-            b: {color: 'black', piece: Bishop},
-            N: {color: 'white', piece: Knight},
-            n: {color: 'black', piece: Knight},
-            K: {color: 'white', piece: King},
-            k: {color: 'black', piece: King},
-            Q: {color: 'white', piece: Queen},
-            q: {color: 'black', piece: Queen},
-            P: {color: 'white', piece: Pawn},
-            p: {color: 'black', piece: Pawn}
+            R: {color: WHITE_PIECE_COLOR, piece: Rook},
+            r: {color: BLACK_PIECE_COLOR, piece: Rook},
+            B: {color: WHITE_PIECE_COLOR, piece: Bishop},
+            b: {color: BLACK_PIECE_COLOR, piece: Bishop},
+            N: {color: WHITE_PIECE_COLOR, piece: Knight},
+            n: {color: BLACK_PIECE_COLOR, piece: Knight},
+            K: {color: WHITE_PIECE_COLOR, piece: King},
+            k: {color: BLACK_PIECE_COLOR, piece: King},
+            Q: {color: WHITE_PIECE_COLOR, piece: Queen},
+            q: {color: BLACK_PIECE_COLOR, piece: Queen},
+            P: {color: WHITE_PIECE_COLOR, piece: Pawn},
+            p: {color: BLACK_PIECE_COLOR, piece: Pawn}
         }
 
         for (let i = 0; i < FEN.length; ++i) {
@@ -66,9 +67,9 @@ class Board {
             // TODO: remove this in the future when implementing full FEN
             if (FEN[i] === ' ') break;
 
-            const piece = piecesMap[FEN[i]];
-            if (piece) {
-                row.push(new piece.piece(piece.color))
+            const currentPiece = piecesMap[FEN[i]];
+            if (currentPiece) {
+                row.push(new currentPiece.piece(currentPiece.color))
             }
 
             if (!isNaN(parseInt(FEN[i], 10))) {
