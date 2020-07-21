@@ -14,6 +14,27 @@ class Board {
     }
 
     /**
+     * 
+     * @param {string} initialSquare initial square in algebraic notation
+     * from which a piece will be moved. The square must have a valid piece.
+     * @param {string} targetSquare target to move the piece in algebraic
+     * notation.
+     * 
+     * @TODO this method, in the future, will need to validate if the move
+     * is actually legal before moving.
+     */
+    move(initialSquare, targetSquare) {
+        let pieceToMove = this._getPiece(initialSquare);
+        if (pieceToMove.name === '.') {
+            throw new Error(`Initial square ${initialSquare} does not ` +
+                `contain a piece.`);
+        }
+
+        this._placePiece(pieceToMove, targetSquare);
+        this._placePiece(new NullPiece(), initialSquare);
+    }
+
+    /**
      * Shows the current board.
      */
     showBoard() {
