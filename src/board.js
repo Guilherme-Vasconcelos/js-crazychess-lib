@@ -135,9 +135,7 @@ class Board {
      * that are available for a given piece. When it is said that the
      * function goes up the board, it means it increases the row counter
      * from 0 to 7. By white's perspective, that would actually mean
-     * going down the board. The same logic applies for the other functions
-     * below. _updateLegalSquaresGoLeft, for instance, increases the
-     * column from 0 to 7, and so on.
+     * going down the board.
      * @param {string} initialPosition position where to begin going up
      * @returns Set of strings (algebraic positions found)
      */
@@ -161,7 +159,11 @@ class Board {
     }
 
     /**
-     * Check _updateLegalSquaresGoUp docstring. The logic applied is the same.
+     * Goes down the board from a given position, checking for positions
+     * that are available for a given piece. When it is said that the
+     * function goes down the board, it means it decreases the row counter
+     * from 7 to 0. By white's perspective, that would actually mean
+     * going up the board.
      * @param {string} initialPosition position where to begin going down
      * @returns Set of strings (algebraic positions found)
      */
@@ -185,7 +187,10 @@ class Board {
     }
 
     /**
-     * Check _updateLegalSquaresGoUp docstring. The logic applied is the same.
+     * Goes to the left at the board from a given position, checking for
+     * positions that are available for a given piece. When it is said that
+     * the function goes to the left, it means it decreases the column counter
+     * from 7 to 0. By white's perspective, that means going to the left.
      * @param {string} initialPosition position where to begin going left
      * @returns Set of strings (algebraic positions found)
      */
@@ -209,7 +214,10 @@ class Board {
     }
 
     /**
-     * Check _updateLegalSquaresGoUp docstring. The logic applied is the same.
+     * Goes to the right at the board from a given position, checking for
+     * positions that are available for a given piece. When it is said that
+     * the function goes to the right, it means it increases the column counter
+     * from 0 to 7. By white's perspective, that means going to the right.
      * @param {string} initialPosition position where to begin going right
      * @returns Set of strings (algebraic positions found)
      */
@@ -233,6 +241,62 @@ class Board {
     }
 
     /**
+     * Goes to the upper-left corner at the board from a given position,
+     * checking for positions that are available for a given piece. When
+     * it is said that the function goes to up and left, it means it
+     * increases the row counter, but decreases the column counter. By white's
+     * perspective, that would actually mean going to the bottom-left corner
+     * of the board.
+     * @param {string} initialPosition position where to begin going up-left
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoUpLeft(initialPosition) {
+
+    }
+
+    /**
+     * Goes to the upper-right corner at the board from a given position,
+     * checking for positions that are available for a given piece. When
+     * it is said that the function goes to up and right, it means it
+     * increases both the row counter and the column counter. By white's
+     * perspective, that would actually mean going to the bottom-right corner
+     * of the board.
+     * @param {string} initialPosition position where to begin going up-right
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoUpRight(initialPosition) {
+        
+    }
+
+    /**
+     * Goes to the bottom-left corner at the board from a given position,
+     * checking for positions that are available for a given piece. When
+     * it is said that the function goes down and left, it means it
+     * decreases both the row counter and the column counter. By white's
+     * perspective, that would actually mean going to the top-left corner
+     * of the board.
+     * @param {string} initialPosition position where to begin going down-left
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoDownLeft(initialPosition) {
+        
+    }
+
+    /**
+     * Goes to the bottom-right corner at the board from a given position,
+     * checking for positions that are available for a given piece. When
+     * it is said that the function goes down and right, it means it
+     * decreases the row counter, but increases the column counter. By white's
+     * perspective, that would actually mean going to the top-right corner
+     * of the board.
+     * @param {string} initialPosition position where to begin going down-right
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoDownRight(initialPosition) {
+        
+    }
+
+    /**
      * Updates the legal squares for whatever piece is in the given position
      * @param {string} position position in algebraic notation
      */
@@ -246,16 +310,13 @@ class Board {
             case 'R':
             case 'r':
                 // TODO: In the future rook will need to have castling
-
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
                     ...this._updateLegalSquaresGoLeft(position),
                     ...this._updateLegalSquaresGoRight(position),
                 ]);
-
                 console.log(pieceToUpdate.legalSquares);
-
                 break;
             
             case 'B':
