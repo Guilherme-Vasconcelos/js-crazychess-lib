@@ -131,6 +131,78 @@ class Board {
     }
 
     /**
+     * Goes up the board from a given position, checking for positions
+     * that are available for a given piece. When it is said that the
+     * function goes up the board, it means it increases the row counter
+     * from 0 to 7. By white's perspective, that would actually mean
+     * going down the board. The same logic applies for the other functions
+     * below. _updateLegalSquaresGoLeft, for instance, increases the
+     * column from 0 to 7, and so on.
+     * @param {string} initialPosition position where to begin going up
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoUp(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        legalSquaresFound = new Set();
+        for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
+            if (rowUp > 7) break;
+            if (this._piecesBoard[rowUp][column].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
+            } else if (this._piecesBoard[rowUp][column].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        return legalSquaresFound;
+    }
+
+    /**
+     * Check _updateLegalSquaresGoUp docstring. The logic applied is the same.
+     * @param {string} initialPosition position where to begin going down
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoDown(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        legalSquaresFound = new Set();
+        for (let rowDown = row - 1; rowDown > -1; --rowDown) {
+            if (rowDown < 0) break;
+            if (this._piecesBoard[rowDown][column].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(rowDown, column));
+            } else if (this._piecesBoard[rowDown][column].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(rowDown, column));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        return legalSquaresFound;
+    }
+
+    /**
+     * Check _updateLegalSquaresGoUp docstring. The logic applied is the same.
+     * @param {string} initialPosition position where to begin going left
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoLeft(initialPosition) {
+
+    }
+
+    /**
+     * Check _updateLegalSquaresGoUp docstring. The logic applied is the same.
+     * @param {string} initialPosition position where to begin going right
+     * @returns Set of strings (algebraic positions found)
+     */
+    _updateLegalSquaresGoRight(initialPosition) {
+
+    }
+
+    /**
      * Updates the legal squares for whatever piece is in the given position
      * @param {string} position position in algebraic notation
      */
