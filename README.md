@@ -8,17 +8,19 @@ Before considering using this library, you should be aware that since it is mean
 ### Dependencies and running
 
 js-crazychess-lib uses a few dependencies mainly for testing. In order to install js-crazychess-lib you must:
-- Clone the project
-- cd into it `cd js-crazychess-lib`
+- Clone the project.
+- cd into it `cd js-crazychess-lib`.
 - Currently, the only dependencies are used for testing. If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using.
-- Instead, if you installed the dependencies with `yarn install` and want to run tests, run `yarn test`
+- Instead, if you want to run the tests, run `yarn install` and `yarn test`.
 
 ### Usage
 
 You can check out examples/main.js to see the main usage, but here are a few steps:
-- To import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory)
-- Instance board: `const board = new Board();` (Board takes an optional parameter, which is your initial position FEN. If you do not inform this parameter, the board will start in chess initial position)
-- Movements: `board.move('e2', 'e4');` will move the piece in e2 to e4. This method still has a lot to improve and is not really usable yet.
+- To import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory).
+- Instance board: `const board = new Board();` (Board takes an optional parameter, which is your initial position FEN. If you do not inform this parameter, the board will start in chess initial position).
+- Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. This method still has a lot to improve and is not really usable yet.
+- Show board: `board.showBoard();` will print a text representation of the board. This can be used for debugging or to see the current position.
+- By convention, Board methods that start with an underline should not be used, as the library uses them for internal implementations.
 
 ### Features
 

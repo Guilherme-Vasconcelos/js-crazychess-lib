@@ -438,6 +438,17 @@ class Board {
                 break;
             case 'Q':
             case 'q':
+                pieceToUpdate.legalSquares = new Set([
+                    ...this._updateLegalSquaresGoUp(position),
+                    ...this._updateLegalSquaresGoDown(position),
+                    ...this._updateLegalSquaresGoLeft(position),
+                    ...this._updateLegalSquaresGoRight(position),
+                    ...this._updateLegalSquaresGoUpLeft(position),
+                    ...this._updateLegalSquaresGoUpRight(position),
+                    ...this._updateLegalSquaresGoDownLeft(position),
+                    ...this._updateLegalSquaresGoDownRight(position)
+                ]);
+                console.log(pieceToUpdate.legalSquares);
                 break;
             case 'P':
             case 'p':
