@@ -1,4 +1,5 @@
 import Board from '../src/board.js';
+import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpers.js';
 
 /**
  * This file is mainly used for making sure new functionalities are working
@@ -7,6 +8,7 @@ import Board from '../src/board.js';
  */
 
 const board = new Board();
+board.move('e2', 'e4');
+board.move('g1', 'f3');
 board.showBoard();
-
-console.log(board._piecesBoard[1][1].legalSquares);
+board.move('f3', 'e8');

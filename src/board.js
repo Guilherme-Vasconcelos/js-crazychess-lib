@@ -33,12 +33,11 @@ class Board {
                 `contain a piece.`);
         }
 
-        /**
-         * pseudo-code:
-         * pieceToMove._updateLegalMoves()
-         * if targetSquare is not in pieceToMove.legalMoves then throw error
-         * else (code below):
-         */
+        this._updateLegalSquares(initialSquare);
+        if (!pieceToMove.legalSquares.has(targetSquare)) {
+            throw new Error(`Move ${targetSquare} is not allowed for ` +
+                `piece at ${initialSquare}`);
+        }
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
@@ -154,10 +153,11 @@ class Board {
      * Updates legal squares for every single piece at the board.
      */
     _updateAllLegalSquares() {
-        for (let i = 0, j = 6; i < 2; ++i, ++j) {
-            for (let k = 0; k < 8; ++k) {
-                this._updateLegalSquares(_intsToAlgebraic(i, k));
-                this._updateLegalSquares(_intsToAlgebraic(j, k));
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                if (!this._piecesBoard[i][j].isNullPiece()) {
+                    this._updateLegalSquares(_intsToAlgebraic(i, j));
+                }
             }
         }
     }
