@@ -7,7 +7,7 @@ Before considering using this library, you should be aware that since it is mean
 
 ### Dependencies and running
 
-js-crazychess-lib uses a few dependencies mainly for testing. In order to install js-crazychess-lib you must:
+js-crazychess-lib uses a few dependencies (Babel and Jest) mainly for testing. In order to install js-crazychess-lib you must:
 - Clone the project.
 - cd into it `cd js-crazychess-lib`.
 - Currently, the only dependencies are used for testing. If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using.
@@ -40,3 +40,22 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>
+
+### Dependencies licenses
+
+js-crazychess-lib uses Jest and Babel for testing, which are both licensed under the MIT License.
+You can check the repositories here:
+- [Babel](https://github.com/babel/babel/blob/main/LICENSE)
+- [Jest](https://github.com/facebook/jest/blob/master/LICENSE)
+
+MIT License copyright notice:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
