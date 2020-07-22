@@ -251,7 +251,27 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoUpLeft(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        const legalSquaresFound = new Set();
+        
+        for (
+            let rowUp = row + 1, colLeft = column - 1; 
+            rowUp < 8 && colLeft > -1;
+            ++rowUp, --colRight
+        ) {
+            if (rowUp > 7 || colLeft < 0) break;
+            if (this._piecesBoard[rowUp][colLeft].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(rowUp, colLeft));
+            } else if (this._piecesBoard[rowUp][colLeft].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(rowUp, colLeft));
+                break;
+            } else {
+                break;
+            }
+        }
 
+        return legalSquaresFound;
     }
 
     /**
@@ -265,7 +285,27 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoUpRight(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        const legalSquaresFound = new Set();
         
+        for (
+            let rowUp = row + 1, colRight = column + 1; 
+            rowUp < 8 && colRight < 8;
+            ++rowUp, ++colRight
+        ) {
+            if (rowUp > 7 || colRight > 7) break;
+            if (this._piecesBoard[rowUp][colRight].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(rowUp, colRight));
+            } else if (this._piecesBoard[rowUp][colRight].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(rowUp, colRight));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        return legalSquaresFound;
     }
 
     /**
@@ -279,7 +319,27 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoDownLeft(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        const legalSquaresFound = new Set();
         
+        for (
+            let rowDown = row - 1, colLeft = column - 1; 
+            rowDown > -1 && colLeft > -1;
+            --rowDown, --colLeft
+        ) {
+            if (rowDown < 0 || colLeft < 0) break;
+            if (this._piecesBoard[rowDown][colLeft].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(rowDown, colLeft));
+            } else if (this._piecesBoard[rowDown][colLeft].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(rowDown, colLeft));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        return legalSquaresFound;
     }
 
     /**
@@ -293,7 +353,27 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoDownRight(initialPosition) {
+        const [ row, column ] = _algebraicToInts(initialPosition);
+        const pieceColor = this._piecesBoard[row][column].color;
+        const legalSquaresFound = new Set();
         
+        for (
+            let rowDown = row - 1, colRight = column + 1; 
+            rowDown > -1 && colRight < 8;
+            --rowDown, ++colRight
+        ) {
+            if (rowDown < 0 || colRight > 7) break;
+            if (this._piecesBoard[rowDown][colRight].name === '.') {
+                legalSquaresFound.add(_intsToAlgebraic(rowDown, colRight));
+            } else if (this._piecesBoard[rowDown][colRight].color === _oppositeColor(pieceColor)) {
+                legalSquaresFound.add(_intsToAlgebraic(rowDown, colRight));
+                break;
+            } else {
+                break;
+            }
+        }
+
+        return legalSquaresFound;
     }
 
     /**
@@ -313,77 +393,20 @@ class Board {
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
                     ...this._updateLegalSquaresGoLeft(position),
-                    ...this._updateLegalSquaresGoRight(position),
+                    ...this._updateLegalSquaresGoRight(position)
                 ]);
+                console.log(pieceToUpdate.legalSquares);
                 break;
             case 'B':
             case 'b':
-                // TODO: move everything to _updateLegalSquaresGoUpLeft,
-                // _updateLegalSquaresGoUpRight, etc. just like the rook code
-                // above.
-                /*for (
-                    let rowUp = row + 1, colRight = column + 1; 
-                    rowUp < 8 && colRight < 8;
-                    ++rowUp, ++colRight
-                ) {
-                    if (rowUp > 7 || colRight > 7) break;
-                    if (this._piecesBoard[rowUp][colRight].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(rowUp, colRight)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                for (
-                    let rowUp = row + 1, colLeft = column - 1;
-                    rowUp < 8 && colLeft > -1;
-                    ++rowUp, --colLeft
-                ) {
-                    if (rowUp > 7 || colLeft < 0) break;
-                    if (this._piecesBoard[rowUp][colLeft].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(rowUp, colLeft)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                for (
-                    let rowDown = row - 1, colRight = column + 1;
-                    rowDown > -1 && colRight < 8;
-                    --rowDown, ++colRight
-                ) {
-                    if (rowDown < 0 || colRight > 7) break;
-                    if (this._piecesBoard[rowDown][colRight].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(rowDown, colRight)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                for (
-                    let rowDown = row - 1, colLeft = column - 1;
-                    rowDown > -1 && colLeft > -1;
-                    --rowDown, --colLeft
-                ) {
-                    if (rowDown < 0 || colLeft < 0) break;
-                    if (this._piecesBoard[rowDown][colLeft].name === '.') {
-                        pieceToUpdate.legalSquares.add(
-                            _intsToAlgebraic(rowDown, colLeft)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                console.log(pieceToUpdate.legalSquares);*/
+                pieceToUpdate.legalSquares = new Set([
+                    ...this._updateLegalSquaresGoUpLeft(position),
+                    ...this._updateLegalSquaresGoUpRight(position),
+                    ...this._updateLegalSquaresGoDownLeft(position),
+                    ...this._updateLegalSquaresGoDownRight(position)
+                ]);
+                console.log(pieceToUpdate.legalSquares);
                 break;
-
             case 'N':
             case 'n':
 
