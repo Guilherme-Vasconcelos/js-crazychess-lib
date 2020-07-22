@@ -22,6 +22,13 @@ class Piece {
                     `must be either 'white' or 'black'.`);  
         }
     }
+
+    /**
+     * Checks if piece is null (i.e. name equals to '.')
+     */
+    isNullPiece() {
+        return this.name === '.';
+    }
 }
 
 /**

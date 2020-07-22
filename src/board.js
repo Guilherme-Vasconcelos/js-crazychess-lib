@@ -26,7 +26,7 @@ class Board {
      */
     move(initialSquare, targetSquare) {
         const pieceToMove = this._getPiece(initialSquare);
-        if (pieceToMove.name === '.') {
+        if (pieceToMove.isNullPiece()) {
             throw new Error(`Initial square ${initialSquare} does not ` +
                 `contain a piece.`);
         }
@@ -145,7 +145,7 @@ class Board {
         const legalSquaresFound = new Set();
         for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
             if (rowUp > 7) break;
-            if (this._piecesBoard[rowUp][column].name === '.') {
+            if (this._piecesBoard[rowUp][column].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
             } else if (this._piecesBoard[rowUp][column].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
@@ -173,7 +173,7 @@ class Board {
         const legalSquaresFound = new Set();
         for (let rowDown = row - 1; rowDown > -1; --rowDown) {
             if (rowDown < 0) break;
-            if (this._piecesBoard[rowDown][column].name === '.') {
+            if (this._piecesBoard[rowDown][column].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(rowDown, column));
             } else if (this._piecesBoard[rowDown][column].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(rowDown, column));
@@ -200,7 +200,7 @@ class Board {
         const legalSquaresFound = new Set();
         for (let colLeft = column - 1; colLeft > -1; --colLeft) {
             if (colLeft < 0) break;
-            if (this._piecesBoard[row][colLeft].name === '.') {
+            if (this._piecesBoard[row][colLeft].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(row, colLeft));
             } else if (this._piecesBoard[row][colLeft].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(row, colLeft));
@@ -227,7 +227,7 @@ class Board {
         const legalSquaresFound = new Set();
         for (let colRight = column + 1; colRight < 8; ++colRight) {
             if (colRight > 7) break;
-            if (this._piecesBoard[row][colRight].name === '.') {
+            if (this._piecesBoard[row][colRight].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(row, colRight));
             } else if (this._piecesBoard[row][colRight].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(row, colRight));
@@ -258,10 +258,10 @@ class Board {
         for (
             let rowUp = row + 1, colLeft = column - 1; 
             rowUp < 8 && colLeft > -1;
-            ++rowUp, --colRight
+            ++rowUp, --colLeft
         ) {
             if (rowUp > 7 || colLeft < 0) break;
-            if (this._piecesBoard[rowUp][colLeft].name === '.') {
+            if (this._piecesBoard[rowUp][colLeft].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(rowUp, colLeft));
             } else if (this._piecesBoard[rowUp][colLeft].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(rowUp, colLeft));
@@ -295,7 +295,7 @@ class Board {
             ++rowUp, ++colRight
         ) {
             if (rowUp > 7 || colRight > 7) break;
-            if (this._piecesBoard[rowUp][colRight].name === '.') {
+            if (this._piecesBoard[rowUp][colRight].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(rowUp, colRight));
             } else if (this._piecesBoard[rowUp][colRight].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(rowUp, colRight));
@@ -329,7 +329,7 @@ class Board {
             --rowDown, --colLeft
         ) {
             if (rowDown < 0 || colLeft < 0) break;
-            if (this._piecesBoard[rowDown][colLeft].name === '.') {
+            if (this._piecesBoard[rowDown][colLeft].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(rowDown, colLeft));
             } else if (this._piecesBoard[rowDown][colLeft].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(rowDown, colLeft));
@@ -363,7 +363,7 @@ class Board {
             --rowDown, ++colRight
         ) {
             if (rowDown < 0 || colRight > 7) break;
-            if (this._piecesBoard[rowDown][colRight].name === '.') {
+            if (this._piecesBoard[rowDown][colRight].isNullPiece()) {
                 legalSquaresFound.add(_intsToAlgebraic(rowDown, colRight));
             } else if (this._piecesBoard[rowDown][colRight].color === _oppositeColor(pieceColor)) {
                 legalSquaresFound.add(_intsToAlgebraic(rowDown, colRight));
@@ -382,7 +382,7 @@ class Board {
      */
     _updateLegalSquares(position) {
         const pieceToUpdate = this._getPiece(position);
-        if (pieceToUpdate.name === '.') {
+        if (pieceToUpdate.isNullPiece()) {
             throw new Error('Given position does not contain a piece.');
         }
 
@@ -409,7 +409,7 @@ class Board {
                 break;
             case 'N':
             case 'n':
-
+                const [ row, column ] = _algebraicToInts(position);
                 let newPositions = [
                     [row + 2, column + 1], [row + 2, column - 1],
                     [row - 2, column + 1], [row - 2, column - 1],
@@ -420,7 +420,17 @@ class Board {
                 newPositions = newPositions.filter(([newRow, newColumn]) =>
                     (newRow < 8 && newRow > -1) && (newColumn < 8 && newColumn > -1)
                 );
-            
+        
+                const legalSquaresFound = new Set();
+                newPositions.forEach(([newRow, newColumn]) => {
+                    const cPiece = this._piecesBoard[newRow][newColumn];
+                    if (cPiece.isNullPiece()
+                        || cPiece.color === _oppositeColor(pieceToUpdate.color)) {
+                        legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
+                    }
+                });
+                pieceToUpdate.legalSquares = legalSquaresFound;
+                console.log(pieceToUpdate.legalSquares);
                 break;
             case 'K':
             case 'k':
