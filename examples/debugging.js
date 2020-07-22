@@ -7,8 +7,6 @@ import Board from '../src/board.js';
  */
 
 const board = new Board();
-
-console.log(board._piecesBoard[1][1].isFirstMove); // has to become false
-board._pawnsActivateDoubleMove();
-console.log(board._piecesBoard[1][1].isFirstMove); // then true here
 board.showBoard();
+
+console.log(board._piecesBoard[1][1].legalSquares);

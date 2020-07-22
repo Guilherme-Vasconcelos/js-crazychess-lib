@@ -12,6 +12,8 @@ class Board {
      */
     constructor(FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
         this._setFENPosition(FEN);
+        this._pawnsActivateDoubleMove();
+        this._updateAllLegalSquares();
     }
 
     /**
@@ -146,6 +148,18 @@ class Board {
             const [ row, column ] = _algebraicToInts(position);
             this._piecesBoard[row][column].isFirstMove = true;
         });
+    }
+
+    /**
+     * Updates legal squares for every single piece at the board.
+     */
+    _updateAllLegalSquares() {
+        for (let i = 0, j = 6; i < 2; ++i, ++j) {
+            for (let k = 0; k < 8; ++k) {
+                this._updateLegalSquares(_intsToAlgebraic(i, k));
+                this._updateLegalSquares(_intsToAlgebraic(j, k));
+            }
+        }
     }
 
     /**
@@ -547,7 +561,6 @@ class Board {
                 });
 
                 pieceToUpdate.legalSquares = legalSquaresFound;
-                console.log(pieceToUpdate.legalSquares);
                 break;
             }
         }
