@@ -479,81 +479,51 @@ class Board {
 
                 break;
             }
-            case 'P': {
-                // TODO: In the future pawn will need to have en passant,
-                // promotions, check if first move (thus allowing 2 squares forward)
-                // and if there is a piece from opposite color on its diagonals it
-                // must allow capturing.
+            case 'P':
+            case 'p': {
+                // TODO: In the future pawn will need to have en passant and promotions
 
                 // If pawn has WHITE_PIECE_COLOR, only allow for it to move by
-                // decreasing the row.
+                // decreasing the row index.
+                // Otherwise, if pawn has BLACK_PIECE_COLOR, only allow for it to move by
+                // increasing the row index.
+                // The lines below are meant to work for both colors of pawns, even
+                // though the logic is slightly different (as described above)
+
+                const rowIncrementValues = { P: -1, p: 1 };
+                const pawnMoveValue = rowIncrementValues[pieceToUpdate.name];
+                const rowUp = row + pawnMoveValue;
+                const twoRowsUp = row + 2 * pawnMoveValue;
 
                 // Moving forward
                 const legalSquaresFound = new Set();
-                for (let i = row - 1; i > row - 3; --i) {
-                    if (this._piecesBoard[i][column].isNullPiece()) {
-                        if (i === row - 2 && !pieceToUpdate.isFirstMove) {
-                            break;
-                        }
+                if (this._piecesBoard[rowUp][column].isNullPiece()) {
+                    legalSquaresFound.add(
+                        _intsToAlgebraic(rowUp, column)
+                    );
+                    
+                    if (
+                        this._piecesBoard[twoRowsUp][column].isNullPiece()
+                    ) {
                         legalSquaresFound.add(
-                            _intsToAlgebraic(i, column)
+                            _intsToAlgebraic(twoRowsUp, column)
                         );
-                    } else {
-                        break;
                     }
                 }
 
                 // Capturing pieces
-                let columns = [];
+                const columns = [];
                 if (column + 1 < 7) columns.push(1);
                 if (column - 1 > -1) columns.push(-1);
 
                 columns.forEach(col => {
                     if (
-                        !this._piecesBoard[row - 1][column + col].isNullPiece() &&
-                        this._piecesBoard[row - 1][column + col].color === BLACK_PIECE_COLOR
+                        !this._piecesBoard[rowUp][column + col].isNullPiece() &&
+                        this._piecesBoard[rowUp][column + col]
+                            .color === _oppositeColor(pieceToUpdate.color)
                     ) {
                         legalSquaresFound.add(
-                            _intsToAlgebraic(row - 1, column + col)
-                        );
-                    }
-                });
-
-                pieceToUpdate.legalSquares = legalSquaresFound;
-                console.log(pieceToUpdate.legalSquares);
-                break;
-            }
-            case 'p': {
-                // if pawn has BLACK_PIECE_COLOR, only allow for it to move by
-                // increasing the row.
-
-                // Moving forward
-                const legalSquaresFound = new Set();
-                for (let i = row + 1; i < row + 3; ++i) {
-                    if (this._piecesBoard[i][column].isNullPiece()) {
-                        if (i === row + 2 && !pieceToUpdate.isFirstMove) {
-                            break;
-                        } 
-                        legalSquaresFound.add(
-                            _intsToAlgebraic(i, column)
-                        );
-                    } else {
-                        break;
-                    }
-                }
-
-                // Capturing pieces
-                let columns = [];
-                if (column + 1 < 7) columns.push(1);
-                if (column - 1 > -1) columns.push(-1);
-
-                columns.forEach(col => {
-                    if (
-                        !this._piecesBoard[row + 1][column + col].isNullPiece() &&
-                        this._piecesBoard[row + 1][column + col].color === WHITE_PIECE_COLOR
-                    ) {
-                        legalSquaresFound.add(
-                            _intsToAlgebraic(row + 1, column + col)
+                            _intsToAlgebraic(rowUp, column + col)
                         );
                     }
                 });
