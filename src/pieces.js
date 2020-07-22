@@ -150,9 +150,13 @@ class Pawn extends Piece {
      * @param {string} color color of your chess piece.
      * Your chess piece must be either 'white' or 'black'. 
      */
-    constructor(color, isFirstMove = true) {
+    constructor(color) {
         super(color);
-        this.isFirstMove = isFirstMove;
+        // Board constructor will change isFirstMove to true. Instantiating
+        // the pawn with isFirstMove set to true brings a lot of problems,
+        // such as the setFENPosition which could instantiate pawns in the
+        // middle of the board with permission to jump two squares.
+        this.isFirstMove = false;
         switch (this.color) {
             case WHITE_PIECE_COLOR:
                 this.name = 'P';

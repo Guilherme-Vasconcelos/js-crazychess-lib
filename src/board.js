@@ -59,6 +59,7 @@ class Board {
     /**
      * Sets the board to have the position indicated by FEN
      * @param {string} FEN FEN for the position to be set
+     * @TODO pawns must be instantiated with isInitialPosition set to false
      */
     _setFENPosition(FEN) {
         this._piecesBoard = [];
@@ -128,6 +129,23 @@ class Board {
         return (
             this._piecesBoard[row][column]
         );
+    }
+
+    /**
+     * Enables all pawns that are in initial positions to do a double move,
+     * as they are disabled by default by _setFENPosition (@TODO). It is recommended
+     * to always call this function in Board constructor.
+     */
+    _pawnsActivateDoubleMove() {
+        const initialPositionsPawns = [
+            'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2',
+            'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7'
+        ]
+
+        initialPositionsPawns.forEach(position => {
+            const [ row, column ] = _algebraicToInts(position);
+            this._piecesBoard[row][column].isFirstMove = true;
+        });
     }
 
     /**
