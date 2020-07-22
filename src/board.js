@@ -382,13 +382,14 @@ class Board {
      */
     _updateLegalSquares(position) {
         const pieceToUpdate = this._getPiece(position);
+        const [ row, column ] = _algebraicToInts(position);
         if (pieceToUpdate.isNullPiece()) {
             throw new Error('Given position does not contain a piece.');
         }
 
         switch (pieceToUpdate.name) {
             case 'R':
-            case 'r':
+            case 'r': {
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
@@ -397,8 +398,9 @@ class Board {
                 ]);
                 console.log(pieceToUpdate.legalSquares);
                 break;
+            }
             case 'B':
-            case 'b':
+            case 'b': {
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUpLeft(position),
                     ...this._updateLegalSquaresGoUpRight(position),
@@ -407,9 +409,9 @@ class Board {
                 ]);
                 console.log(pieceToUpdate.legalSquares);
                 break;
+            }
             case 'N':
-            case 'n':
-                const [ row, column ] = _algebraicToInts(position);
+            case 'n': {
                 let newPositions = [
                     [row + 2, column + 1], [row + 2, column - 1],
                     [row - 2, column + 1], [row - 2, column - 1],
@@ -424,20 +426,46 @@ class Board {
                 const legalSquaresFound = new Set();
                 newPositions.forEach(([newRow, newColumn]) => {
                     const cPiece = this._piecesBoard[newRow][newColumn];
-                    if (cPiece.isNullPiece()
-                        || cPiece.color === _oppositeColor(pieceToUpdate.color)) {
+                    if (
+                        cPiece.isNullPiece() ||
+                        cPiece.color === _oppositeColor(pieceToUpdate.color)
+                    ) {
                         legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
                     }
                 });
                 pieceToUpdate.legalSquares = legalSquaresFound;
                 console.log(pieceToUpdate.legalSquares);
                 break;
+            }
             case 'K':
-            case 'k':
+            case 'k': {
                 // TODO: In the future king will need to have check/castle
+                let newPositions = [
+                    [row - 1, column - 1], [row - 1, column], [row - 1, column + 1],
+                    [row, column - 1], [row, column + 1],
+                    [row + 1, column - 1], [row + 1, column], [row + 1, column + 1]
+                ];
+
+                newPositions = newPositions.filter(([newRow, newColumn]) =>
+                    (newRow < 8 && newRow > -1) && (newColumn < 8 && newColumn > -1)
+                );
+
+                const legalSquaresFound = new Set();
+                newPositions.forEach(([newRow, newColumn]) => {
+                    const cPiece = this._piecesBoard[newRow][newColumn];
+                    if (
+                        cPiece.isNullPiece() ||
+                        cPiece.color === _oppositeColor(pieceToUpdate.color)
+                    ) {
+                        legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
+                    }
+                });
+                pieceToUpdate.legalSquares = legalSquaresFound;
+                console.log(pieceToUpdate.legalSquares);
                 break;
+            }
             case 'Q':
-            case 'q':
+            case 'q': {
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
@@ -450,10 +478,13 @@ class Board {
                 ]);
                 console.log(pieceToUpdate.legalSquares);
                 break;
+            }
             case 'P':
-            case 'p':
-                // TODO: In the future pawn will need to have en passant
+            case 'p': {
+                // TODO: In the future pawn will need to have en passant,
+                // promotions and check if first move (thus allowing 2 squares forward)
                 break;
+            }
         }
     }
 }

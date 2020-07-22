@@ -6,12 +6,14 @@ import Board from '../src/board.js';
  * files you actually need are the ones inside src directory.
  */
 
-const board = new Board('8/5r2/8/3qn3/2B5/2QK4/3R4/8 w - - 0 1');
+const board = new Board('8/5r2/8/2kqn3/2B5/2QK4/3R4/8 w - - 0 1');
 board._updateLegalSquares('d2');
 board._updateLegalSquares('c4');
 board._updateLegalSquares('e5');
 board._updateLegalSquares('f7');
 board._updateLegalSquares('c3');
 board._updateLegalSquares('d5');
+board._updateLegalSquares('d3');
+board._updateLegalSquares('c5');
 
 board.showBoard();

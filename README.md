@@ -48,7 +48,8 @@ You can check the repositories here:
 - [Babel](https://github.com/babel/babel/blob/main/LICENSE)
 - [Jest](https://github.com/facebook/jest/blob/master/LICENSE)
 
-MIT License copyright notice:
+For dependencies licensed under the MIT license, you can check its copyright notice below:
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
