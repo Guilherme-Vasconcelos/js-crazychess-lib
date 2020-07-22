@@ -309,20 +309,18 @@ class Board {
         switch (pieceToUpdate.name) {
             case 'R':
             case 'r':
-                // TODO: In the future rook will need to have castling
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
                     ...this._updateLegalSquaresGoLeft(position),
                     ...this._updateLegalSquaresGoRight(position),
                 ]);
-                console.log(pieceToUpdate.legalSquares);
                 break;
-            
             case 'B':
             case 'b':
-                // TODO: bishop can move to a occupied square as long as
-                // it is occupied by a piece of opposite color
+                // TODO: move everything to _updateLegalSquaresGoUpLeft,
+                // _updateLegalSquaresGoUpRight, etc. just like the rook code
+                // above.
                 /*for (
                     let rowUp = row + 1, colRight = column + 1; 
                     rowUp < 8 && colRight < 8;
@@ -388,8 +386,6 @@ class Board {
 
             case 'N':
             case 'n':
-                // TODO: knight can move to a occupied square as long as
-                // it is occupied by a piece of opposite color
 
                 let newPositions = [
                     [row + 2, column + 1], [row + 2, column - 1],

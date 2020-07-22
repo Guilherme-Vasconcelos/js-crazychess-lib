@@ -11,9 +11,6 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from '../src/helper
  * - Code handles invalid ints to algebraic conversions
  * - Code handles invalid algebraic to ints conversions
  * - Initial positions
- * - (TODO) Place pieces
- * - (TODO) Get pieces
- * - (TODO movement tests
  */
 
 test('Valid ints to algebraic conversions', () => {
@@ -54,7 +51,7 @@ test('Valid algebraic to ints conversions', () => {
 });
 
 test('Code handles invalid ints to algebraic conversions', () => {
-    let positions = [
+    const positions = [
         [8, 8], [-1, 0], [3, 12],
         [null, null], [undefined, undefined],
         ['_', '+'], ['a', 15], [15, 'b'],
@@ -69,7 +66,7 @@ test('Code handles invalid ints to algebraic conversions', () => {
 });
 
 test('Code handles invalid algebraic to ints conversions', () => {
-    let positions = [
+    const positions = [
         'a0', 'a9', 'b-1',
         'j3', 'j0', 'm5',
         '_', '+', '-',
