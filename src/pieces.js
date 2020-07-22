@@ -150,8 +150,9 @@ class Pawn extends Piece {
      * @param {string} color color of your chess piece.
      * Your chess piece must be either 'white' or 'black'. 
      */
-    constructor(color) {
+    constructor(color, isFirstMove = true) {
         super(color);
+        this.isFirstMove = isFirstMove;
         switch (this.color) {
             case WHITE_PIECE_COLOR:
                 this.name = 'P';

@@ -384,7 +384,7 @@ class Board {
         const pieceToUpdate = this._getPiece(position);
         const [ row, column ] = _algebraicToInts(position);
         if (pieceToUpdate.isNullPiece()) {
-            throw new Error('Given position does not contain a piece.');
+            throw new Error(`Given position ${position} does not contain a piece.`);
         }
 
         switch (pieceToUpdate.name) {
@@ -396,7 +396,7 @@ class Board {
                     ...this._updateLegalSquaresGoLeft(position),
                     ...this._updateLegalSquaresGoRight(position)
                 ]);
-                console.log(pieceToUpdate.legalSquares);
+
                 break;
             }
             case 'B':
@@ -407,7 +407,7 @@ class Board {
                     ...this._updateLegalSquaresGoDownLeft(position),
                     ...this._updateLegalSquaresGoDownRight(position)
                 ]);
-                console.log(pieceToUpdate.legalSquares);
+
                 break;
             }
             case 'N':
@@ -433,8 +433,8 @@ class Board {
                         legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
                     }
                 });
+
                 pieceToUpdate.legalSquares = legalSquaresFound;
-                console.log(pieceToUpdate.legalSquares);
                 break;
             }
             case 'K':
@@ -460,8 +460,8 @@ class Board {
                         legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
                     }
                 });
+
                 pieceToUpdate.legalSquares = legalSquaresFound;
-                console.log(pieceToUpdate.legalSquares);
                 break;
             }
             case 'Q':
@@ -476,13 +476,90 @@ class Board {
                     ...this._updateLegalSquaresGoDownLeft(position),
                     ...this._updateLegalSquaresGoDownRight(position)
                 ]);
+
+                break;
+            }
+            case 'P': {
+                // TODO: In the future pawn will need to have en passant,
+                // promotions, check if first move (thus allowing 2 squares forward)
+                // and if there is a piece from opposite color on its diagonals it
+                // must allow capturing.
+
+                // If pawn has WHITE_PIECE_COLOR, only allow for it to move by
+                // decreasing the row.
+
+                // Moving forward
+                const legalSquaresFound = new Set();
+                for (let i = row - 1; i > row - 3; --i) {
+                    if (this._piecesBoard[i][column].isNullPiece()) {
+                        if (i === row - 2 && !pieceToUpdate.isFirstMove) {
+                            break;
+                        }
+                        legalSquaresFound.add(
+                            _intsToAlgebraic(i, column)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                // Capturing pieces
+                let columns = [];
+                if (column + 1 < 7) columns.push(1);
+                if (column - 1 > -1) columns.push(-1);
+
+                columns.forEach(col => {
+                    if (
+                        !this._piecesBoard[row - 1][column + col].isNullPiece() &&
+                        this._piecesBoard[row - 1][column + col].color === BLACK_PIECE_COLOR
+                    ) {
+                        legalSquaresFound.add(
+                            _intsToAlgebraic(row - 1, column + col)
+                        );
+                    }
+                });
+
+                pieceToUpdate.legalSquares = legalSquaresFound;
                 console.log(pieceToUpdate.legalSquares);
                 break;
             }
-            case 'P':
             case 'p': {
-                // TODO: In the future pawn will need to have en passant,
-                // promotions and check if first move (thus allowing 2 squares forward)
+                // if pawn has BLACK_PIECE_COLOR, only allow for it to move by
+                // increasing the row.
+
+                // Moving forward
+                const legalSquaresFound = new Set();
+                for (let i = row + 1; i < row + 3; ++i) {
+                    if (this._piecesBoard[i][column].isNullPiece()) {
+                        if (i === row + 2 && !pieceToUpdate.isFirstMove) {
+                            break;
+                        } 
+                        legalSquaresFound.add(
+                            _intsToAlgebraic(i, column)
+                        );
+                    } else {
+                        break;
+                    }
+                }
+
+                // Capturing pieces
+                let columns = [];
+                if (column + 1 < 7) columns.push(1);
+                if (column - 1 > -1) columns.push(-1);
+
+                columns.forEach(col => {
+                    if (
+                        !this._piecesBoard[row + 1][column + col].isNullPiece() &&
+                        this._piecesBoard[row + 1][column + col].color === WHITE_PIECE_COLOR
+                    ) {
+                        legalSquaresFound.add(
+                            _intsToAlgebraic(row + 1, column + col)
+                        );
+                    }
+                });
+
+                pieceToUpdate.legalSquares = legalSquaresFound;
+                console.log(pieceToUpdate.legalSquares);
                 break;
             }
         }
