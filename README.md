@@ -22,9 +22,19 @@ You can check out examples/main.js to see the main usage, but here are a few ste
 - Show board: `board.showBoard();` will print a text representation of the board. This can be used for debugging or to see the current position.
 - By convention, Board methods that start with an underline should not be used, as the library uses them for internal implementations.
 
-### Features
+### Features implemented
 
-Not a lot at the moment.
+- Start a chess game (with custom FEN, if you wish so)
+- Move pieces around with legal moves validation
+
+### Features to be implemented
+
+- Castling
+- En passant
+- Pawns promotions
+- Check / checkmate
+- Determine whose turn is it
+- If we come up with more features ideas, they will be added here too
 
 ### License
 
