@@ -1,7 +1,2 @@
-const WHITE_PIECE_COLOR = 'white';
-const BLACK_PIECE_COLOR = 'black';
-
-export {
-    WHITE_PIECE_COLOR,
-    BLACK_PIECE_COLOR,
-}
+export const WHITE_PIECE_COLOR = 'white';
+export const BLACK_PIECE_COLOR = 'black';

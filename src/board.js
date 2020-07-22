@@ -1,6 +1,6 @@
 import { Rook, Bishop, Knight, King, Queen, Pawn, NullPiece } from './pieces.js';
 import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
-import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from './helpers.js';
+import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from './helpers.js';
 
 /**
  * Class used to represent the chess board.

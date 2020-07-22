@@ -31,8 +31,8 @@ function _algebraicToInts(algebraicPosition) {
 /**
  * Converts a given position in row, column to algebraic notation.
  * Examples: 0, 0 -> 'a8' / 2, 1 -> 'b6' / etc.
- * @param {int} row position's row (from 0 to 7)
- * @param {int} column position's column (from 0 to 7)
+ * @param {Number} row position's row (from 0 to 7)
+ * @param {Number} column position's column (from 0 to 7)
  * @returns string with the corresponding algebraic notation
  */
 function _intsToAlgebraic(row, column) {
