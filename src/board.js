@@ -22,9 +22,6 @@ class Board {
      * from which a piece will be moved. The square must have a valid piece.
      * @param {string} targetSquare target to move the piece in algebraic
      * notation.
-     * 
-     * @TODO this method, in the future, will need to validate if the move
-     * is actually legal before moving.
      */
     move(initialSquare, targetSquare) {
         const pieceToMove = this._getPiece(initialSquare);
@@ -38,6 +35,9 @@ class Board {
                 `but found a move from ${pieceToMove.color} pieces.`);
         }
 
+        // The move method is, currently, using some kind of "lazy evaluation".
+        // Most pieces remain with their legalSquares out of date, and are
+        // only updated for a given piece once the programmer wants to move it.
         this._updateLegalSquares(initialSquare);
         if (!pieceToMove.legalSquares.has(targetSquare)) {
             throw new Error(`Move ${targetSquare} is not allowed for ` +
@@ -151,7 +151,7 @@ class Board {
 
     /**
      * Enables all pawns that are in initial positions to do a double move,
-     * as they are disabled by default by _setFENPosition (@TODO). It is recommended
+     * as they are disabled by default by _setFENPosition. It is recommended
      * to always call this function in Board constructor.
      */
     _pawnsActivateDoubleMove() {
