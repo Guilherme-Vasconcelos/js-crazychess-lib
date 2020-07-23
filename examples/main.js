@@ -7,4 +7,6 @@ import Board from '../src/board.js';
 
 const board = new Board();
 board.move('e2', 'e4');
+board.move('e7', 'e5');
+board.move('f2', 'f5');
 board.showBoard();

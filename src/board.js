@@ -33,6 +33,11 @@ class Board {
                 `contain a piece.`);
         }
 
+        if (pieceToMove.color === _oppositeColor(this.activeColor)) {
+            throw new Error(`Expecting move from ${this.activeColor} pieces, ` +
+                `but found a move from ${pieceToMove.color} pieces.`);
+        }
+
         this._updateLegalSquares(initialSquare);
         if (!pieceToMove.legalSquares.has(targetSquare)) {
             throw new Error(`Move ${targetSquare} is not allowed for ` +
@@ -41,6 +46,7 @@ class Board {
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
+        this.activeColor = _oppositeColor(pieceToMove.color);
     }
 
     /**
@@ -60,11 +66,18 @@ class Board {
     /**
      * Sets the board to have the position indicated by FEN
      * @param {string} FEN FEN for the position to be set
-     * @TODO pawns must be instantiated with isInitialPosition set to false
      */
     _setFENPosition(FEN) {
         this._piecesBoard = [];
         let row = [];
+        FEN = FEN.split(' ');
+        const piecesPlacement = FEN[0];
+        const activeColor = FEN[1];
+        // The following four are not used yet, but will be.
+        const castling = FEN[2];
+        const enPassant = FEN[3];
+        const halfMove = FEN[4];
+        const fullMove = FEN[5];
         const piecesMap = {
             R: {color: WHITE_PIECE_COLOR, piece: Rook},
             r: {color: BLACK_PIECE_COLOR, piece: Rook},
@@ -80,31 +93,36 @@ class Board {
             p: {color: BLACK_PIECE_COLOR, piece: Pawn}
         }
 
-        for (let i = 0; i < FEN.length; ++i) {
-            if (FEN[i] === '/') {
+        for (let i = 0; i < piecesPlacement.length; ++i) {
+            if (piecesPlacement[i] === '/') {
                 this._piecesBoard.push(row);
                 row = [];
                 continue;
             }
 
-            // TODO: adapt this in the future when implementing full FEN, as
-            // the data after the space is also important to the game (but not
-            // important if you just want the position itself).
-            if (FEN[i] === ' ') break;
-
-            const currentPiece = piecesMap[FEN[i]];
+            const currentPiece = piecesMap[piecesPlacement[i]];
             if (currentPiece) {
                 row.push(new currentPiece.piece(currentPiece.color))
             }
 
-            if (!isNaN(parseInt(FEN[i], 10))) {
-                for (let j = 0; j < parseInt(FEN[i], 10); ++j) {
+            if (!isNaN(parseInt(piecesPlacement[i], 10))) {
+                for (let j = 0; j < parseInt(piecesPlacement[i], 10); ++j) {
                     row.push(new NullPiece());
                 }
             }
         }
-
         this._piecesBoard.push(row);
+
+        switch (activeColor) {
+            case 'w':
+                this.activeColor = WHITE_PIECE_COLOR;
+                break;
+            case 'b':
+                this.activeColor = BLACK_PIECE_COLOR;
+                break;
+            default:
+                throw new Error(`FEN contains invalid color ${activeColor}`);
+        }
     }
 
     /**
