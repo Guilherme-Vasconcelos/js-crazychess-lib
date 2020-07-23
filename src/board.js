@@ -120,7 +120,7 @@ class Board {
                 this.activeColor = BLACK_PIECE_COLOR;
                 break;
             default:
-                throw new Error(`FEN contains invalid color ${activeColor}`);
+                throw new Error(`FEN contains invalid color ${activeColor}.`);
         }
     }
 

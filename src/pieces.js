@@ -24,7 +24,7 @@ class Piece {
     }
 
     /**
-     * Checks if piece is null (i.e. name equals to '.')
+     * Checks if piece is null
      */
     isNullPiece() {
         return this.name === '.';

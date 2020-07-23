@@ -2,7 +2,10 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from '../src/helper
 
 /**
  * Tests in this file:
- * - Initial positions are set correctly
+ * - Valid ints to algebraic conversions
+ * - Valid algebraic to ints conversions
+ * - Helper handles invalid ints to algebraic conversions
+ * - Helper handles invalid algebraic to ints conversions
  */
 
 test('Valid ints to algebraic conversions', () => {
