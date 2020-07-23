@@ -19,12 +19,12 @@ You can check out examples/main.js to see the main usage, but here are a few ste
 - Instance board: `const board = new Board();` (Board takes an optional parameter, which is your initial position FEN. If you do not inform this parameter, the board will start in chess initial position).
 - Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. This method still has a lot to improve and is not really usable yet.
 - Show board: `board.showBoard();` will print a text representation of the board. This can be used for debugging or to see the current position.
-- By convention, Board methods that start with an underline should not be used, as the library uses them for internal implementations.
+- By convention, **Board methods that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when you call a certain method. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
 
 ### Features implemented
 
 - Start a chess game (with custom FEN, if you wish so)
-- Move pieces around with legal moves validation
+- Move pieces around with legal moves and turn validation
 
 ### Features to be implemented
 
@@ -32,7 +32,6 @@ You can check out examples/main.js to see the main usage, but here are a few ste
 - En passant
 - Pawns promotions
 - Check / checkmate
-- Determine whose turn is it
 - If we come up with more features ideas, they will be added here too
 
 ### License

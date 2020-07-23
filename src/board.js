@@ -64,6 +64,60 @@ class Board {
     }
 
     /**
+     * Gets the current FEN of the game. Always use this function to get
+     * the current FEN, since it is also used to update the FEN attribute,
+     * which means if you use Board._currentFEN directly you will have an
+     * outdated value.
+     * @returns a string representing the current FEN.
+     */
+    getCurrentFEN() {
+        const currentFEN = [];
+        let piecesPlacement = '';
+        let currentRow = '';
+        for (let i = 0; i < 8; ++i) {
+            let countNullPiece = 0;
+            for (let j = 0; j < 8; ++j) {
+                if (this._piecesBoard[i][j].isNullPiece()) {
+                    countNullPiece += 1;
+                } else {
+                    if (countNullPiece !== 0) {
+                        currentRow += countNullPiece.toString();
+                    }
+                    currentRow += this._piecesBoard[i][j].name;
+                    countNullPiece = 0;
+                }
+            }
+            if (countNullPiece !== 0) {
+                currentRow += countNullPiece.toString();
+            }
+            if (i !== 7) currentRow += '/';
+            piecesPlacement += currentRow;
+            currentRow = '';
+        }
+        piecesPlacement += currentRow;
+        currentFEN.push(piecesPlacement);
+
+        switch (this.activeColor) {
+            case WHITE_PIECE_COLOR:
+                currentFEN.push('w');
+                break;
+            case BLACK_PIECE_COLOR:
+                currentFEN.push('b');
+                break;
+        }
+
+        // TODO: When we have full FEN support we will need to
+        // push to currentFEN the other four attributes correctly too.
+        currentFEN.push('-');
+        currentFEN.push('-');
+        currentFEN.push('-');
+        currentFEN.push('-');
+
+        this._currentFEN = currentFEN.join(' ');
+        return this._currentFEN;
+    }
+
+    /**
      * Sets the board to have the position indicated by FEN
      * @param {string} FEN FEN for the position to be set
      */
@@ -152,7 +206,8 @@ class Board {
     /**
      * Enables all pawns that are in initial positions to do a double move,
      * as they are disabled by default by _setFENPosition. It is recommended
-     * to always call this function in Board constructor.
+     * to always call this function in Board constructor after loading the
+     * initial FEN.
      */
     _pawnsActivateDoubleMove() {
         const initialPositionsPawns = [
