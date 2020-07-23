@@ -1,8 +1,6 @@
 import Board from '../src/board.js';
 import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
 
-// https://jestjs.io/docs/en/expect
-
 /**
  * Tests in this file:
  * - Initial positions are set correctly

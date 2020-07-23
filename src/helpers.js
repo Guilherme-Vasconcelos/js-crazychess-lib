@@ -6,7 +6,7 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
  */
 function _oppositeColor(color) {
     if (color === WHITE_PIECE_COLOR) return BLACK_PIECE_COLOR;
-    else return WHITE_PIECE_COLOR;
+    return WHITE_PIECE_COLOR;
 }
 
 /**

@@ -71,13 +71,12 @@ class Board {
         this._piecesBoard = [];
         let row = [];
         FEN = FEN.split(' ');
-        const piecesPlacement = FEN[0];
-        const activeColor = FEN[1];
-        // The following four are not used yet, but will be.
-        const castling = FEN[2];
-        const enPassant = FEN[3];
-        const halfMove = FEN[4];
-        const fullMove = FEN[5];
+        // For now only piecesPlacement and activeColor are used,
+        // but the others will be used too soon
+        const [
+            piecesPlacement, activeColor, castling,
+            enPassant, halfMove, fullMove
+        ] = FEN;
         const piecesMap = {
             R: {color: WHITE_PIECE_COLOR, piece: Rook},
             r: {color: BLACK_PIECE_COLOR, piece: Rook},
