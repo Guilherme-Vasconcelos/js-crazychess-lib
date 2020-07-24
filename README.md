@@ -15,11 +15,11 @@ js-crazychess-lib uses a few dependencies (Babel and Jest) mainly for testing. I
 ### Usage
 
 You can check out examples/main.js to see the main usage, but here are a few steps:
-- To import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory).
+- To import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory). The code is built so that you only have to import the board.js file, which means after this you are ready to go.
 - Instance board: `const board = new Board();` (Board takes an optional parameter, which is your initial position FEN. If you do not inform this parameter, the board will start in chess initial position).
-- Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. This method still has a lot to improve and is not really usable yet.
-- Show board: `board.showBoard();` will print a text representation of the board. This can be used for debugging or to see the current position.
-- By convention, **Board methods that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when you call a certain method. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
+- Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. Keep in mind we still have no support for checks and mates, en passant and castling, plus some features that have been added are still being tested.
+- Show board: `board.showBoard();` will print a text representation of the board.
+- By convention, **Board methods and attributes that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when a specific thing happens. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
 
 ### Features implemented
 

@@ -1,13 +1,5 @@
 import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from '../src/helpers.js';
 
-/**
- * Tests in this file:
- * - Valid ints to algebraic conversions
- * - Valid algebraic to ints conversions
- * - Helper handles invalid ints to algebraic conversions
- * - Helper handles invalid algebraic to ints conversions
- */
-
 test('Valid ints to algebraic conversions', () => {
     const valuesForColumns = {
         a: 0, b: 1, c: 2,

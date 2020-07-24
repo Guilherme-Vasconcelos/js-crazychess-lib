@@ -37,7 +37,7 @@ function _algebraicToInts(algebraicPosition) {
  */
 function _intsToAlgebraic(row, column) {
     if (!Number.isInteger(row) || !Number.isInteger(column)) {
-        throw new Error(`Rows and columns must be integers. ` +
+        throw new Error(`Board rows and columns must be integers. ` +
             `You entered: [${row}, ${column}].`);
     }
     else if (row < 0 || row > 7 || column < 0 || column > 7) {

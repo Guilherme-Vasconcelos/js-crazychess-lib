@@ -1,11 +1,6 @@
 import Board from '../src/board.js';
 import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
 
-/**
- * Tests in this file:
- * - Initial positions are set correctly
- */
-
 test('Initial positions are set correctly', () => {
     const board = new Board();
     const coordsPositionsWhitePieces = [
