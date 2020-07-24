@@ -32,7 +32,8 @@ class Board {
 
         if (pieceToMove.color === _oppositeColor(this.activeColor)) {
             throw new Error(`Expecting move from ${this.activeColor} pieces, ` +
-                `but found a move from ${pieceToMove.color} pieces.`);
+                `but found move from a ${pieceToMove.color} piece located ` +
+                `at '${initialSquare}'.`);
         }
 
         // The move method is, currently, using some kind of "lazy evaluation".
@@ -71,7 +72,7 @@ class Board {
      * @returns a string representing the current FEN.
      */
     getCurrentFEN() {
-        const currentFEN = [];
+        this._currentFEN = [];
         let piecesPlacement = '';
         let currentRow = '';
         for (let i = 0; i < 8; ++i) {
@@ -82,9 +83,9 @@ class Board {
                 } else {
                     if (countNullPiece !== 0) {
                         currentRow += countNullPiece.toString();
+                        countNullPiece = 0;
                     }
                     currentRow += this._piecesBoard[i][j].name;
-                    countNullPiece = 0;
                 }
             }
             if (countNullPiece !== 0) {
@@ -95,26 +96,25 @@ class Board {
             currentRow = '';
         }
         piecesPlacement += currentRow;
-        currentFEN.push(piecesPlacement);
+        this._currentFEN.push(piecesPlacement);
 
         switch (this.activeColor) {
             case WHITE_PIECE_COLOR:
-                currentFEN.push('w');
+                this._currentFEN.push('w');
                 break;
             case BLACK_PIECE_COLOR:
-                currentFEN.push('b');
+                this._currentFEN.push('b');
                 break;
         }
 
         // TODO: When we have full FEN support we will need to
         // push to currentFEN the other four attributes correctly too.
-        currentFEN.push('-');
-        currentFEN.push('-');
-        currentFEN.push('-');
-        currentFEN.push('-');
+        this._currentFEN.push('-');
+        this._currentFEN.push('-');
+        this._currentFEN.push('-');
+        this._currentFEN.push('-');
 
-        this._currentFEN = currentFEN.join(' ');
-        return this._currentFEN;
+        return this._currentFEN.join(' ');
     }
 
     /**
