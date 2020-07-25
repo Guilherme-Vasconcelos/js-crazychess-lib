@@ -29,7 +29,6 @@ class Board {
      * notation.
      */
     move(initialSquare, targetSquare) {
-        // @TODO: when a Pawn moves, the .isFirstMove attribute must be set to false.
         const pieceToMove = this._getPiece(initialSquare);
         if (pieceToMove.isNullPiece()) {
             throw new Error(`Initial square ${initialSquare} does not ` +
@@ -649,12 +648,11 @@ class Board {
                 // Moving forward
                 const legalSquaresFound = new Set();
                 if (this._piecesBoard[rowUp][column].isNullPiece()) {
-                    legalSquaresFound.add(
-                        _intsToAlgebraic(rowUp, column)
-                    );
+                    legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
                     
                     if (
                         this._piecesBoard[twoRowsUp][column].isNullPiece()
+                        && pieceToUpdate.isFirstMove
                     ) {
                         legalSquaresFound.add(
                             _intsToAlgebraic(twoRowsUp, column)
