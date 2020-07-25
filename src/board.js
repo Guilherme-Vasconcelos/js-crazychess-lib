@@ -71,9 +71,11 @@ class Board {
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
         if (this.isCheck() && !this._checkless) {
-            throw new Error(`Illegal move because ${this.activeColor} is in check. ` +
-                `If you wish to ignore checks, change board's constructor parameter` +
-                ` 'checkless' to true.`);
+            throw new Error(`Illegal move '${initialSquare}' to ` +
+                `'${targetSquare}' because ${this.activeColor}'s king is or ` +
+                `would be in check after the move.\nIf you wish to ignore ` +
+                `checks, change board's constructor parameter 'checkless' to ` +
+                `true.`);
         }
         this.activeColor = _oppositeColor(pieceToMove.color);
     }

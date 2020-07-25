@@ -9,10 +9,8 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
 
 const board = new Board('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 board.move('e2', 'e4');
-board.move('e7', 'e5');
-board.move('f2', 'f4');
-board.move('e5', 'f4');
+board.move('e7', 'e6');
 board.move('a2', 'a3');
 board.move('d8', 'h4');
-board.move('b2', 'b3');
+board.move('f2', 'f4');
 board.showBoard();
