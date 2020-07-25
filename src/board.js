@@ -36,6 +36,10 @@ class Board {
                 `at '${initialSquare}'.`);
         }
 
+        if (pieceToMove.color === BLACK_PIECE_COLOR) {
+            this.fullMoveCount += 1;
+        }
+
         // The move method is, currently, using some kind of "lazy evaluation".
         // Most pieces remain with their legalSquares out of date, and are
         // only updated for a given piece once the programmer wants to move it.
@@ -109,10 +113,10 @@ class Board {
 
         // TODO: When we have full FEN support we will need to
         // push to currentFEN the other four attributes correctly too.
+        this._currentFEN.push('KQkq');
         this._currentFEN.push('-');
         this._currentFEN.push('-');
-        this._currentFEN.push('-');
-        this._currentFEN.push('-');
+        this._currentFEN.push(this.fullMoveCount.toString());  // this is probably correct
 
         return this._currentFEN.join(' ');
     }
@@ -176,6 +180,8 @@ class Board {
             default:
                 throw new Error(`FEN contains invalid color ${activeColor}.`);
         }
+
+        this.fullMoveCount = parseInt(fullMove, 10);
     }
 
     /**

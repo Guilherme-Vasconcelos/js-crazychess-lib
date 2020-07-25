@@ -51,7 +51,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ### Dependencies licenses
 
-js-crazychess-lib uses Jest and Babel for testing, which are both (as of 24/07/2020) licensed under the MIT License.
+js-crazychess-lib uses Jest and Babel for testing, which are both currently (this is being written on 25/07/2020) licensed under the MIT License.
 You can check the repositories here:
 - [Babel](https://github.com/babel/babel/blob/main/LICENSE)
 - [Jest](https://github.com/facebook/jest/blob/master/LICENSE)
