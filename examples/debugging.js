@@ -9,6 +9,9 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
 
 const board = new Board();
 board.move('e2', 'e4');
-board.move('g1', 'f3');
+board._updateLegalSquares('e1');
+board._updateLegalSquares('d1');
+console.log(board._getPiece('e1').legalSquares);
+console.log(board._getPiece('d1').legalSquares);
+board.move('e7', 'e5');
 board.showBoard();
-board.move('f3', 'e8');
