@@ -27,13 +27,14 @@ You can check out examples/main.js to see the main usage, but here are a few ste
 
 - Start a chess game (with custom FEN, if you wish so)
 - Move pieces around with legal moves and turn validation
+- Validate each position for checks (can be turned off)
 
 ### Features to be implemented
 
 - Castling
 - En passant
 - Pawns promotions
-- Check / checkmate
+- Checkmate
 - If we come up with more features ideas, they will be added here too
 
 ### License

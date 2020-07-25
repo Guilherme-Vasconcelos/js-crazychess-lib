@@ -655,7 +655,7 @@ class Board {
             }
             case WHITE_KING_NAME:
             case BLACK_KING_NAME: {
-                // TODO: In the future king will need to have check/castle
+                // TODO: In the future king will need to have castle
                 let newPositions = [
                     [row - 1, column - 1], [row - 1, column], [row - 1, column + 1],
                     [row, column - 1], [row, column + 1],
