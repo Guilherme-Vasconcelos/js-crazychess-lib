@@ -7,10 +7,5 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
  * files you actually need are the ones inside src directory (see usage at README).
  */
 
-const board = new Board();
-board.move('e2', 'e4');
-board.move('e7', 'e6');
-board.move('a2', 'a3');
-board.move('d8', 'h4');
-board.move('f2', 'f4');
+const board = new Board('rnbq1bnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQ1BNR w - - 0 1', true);
 board.showBoard();

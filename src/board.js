@@ -232,11 +232,16 @@ class Board {
         return '';
     }
 
+    /**
+     * Checks if kings exist in the given game. Kings are allowed not to exist
+     * if it is a checkless game. Otherwise, they are mandatory.
+     * @returns boolean true if kings have been found, otherwise throws error
+     */
     _kingsExist() {
         if (
             this.getWhiteKingPosition() === '' || this.getBlackKingPosition() === ''
         ) {
-            throw new Error('Kings have not been found in loaded FEN. If you ' +
+            throw new Error('Kings have not been found in loaded FEN.\nIf you ' +
                 'wish to play a checkless game, set the checkless board ' + 
                 'constructor parameter to true.');
         }
