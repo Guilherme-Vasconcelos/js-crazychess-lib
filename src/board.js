@@ -61,6 +61,7 @@ class Board {
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
+        // if active color is in check then throw error.
         this.activeColor = _oppositeColor(pieceToMove.color);
     }
 
@@ -106,6 +107,19 @@ class Board {
         }
 
         return false;
+    }
+
+    /**
+     * Checks if current active color is in check.
+     * @returns boolean true if position is check, else false.
+     */
+    isCheck() {
+        switch (this.activeColor) {
+            case WHITE_PIECE_COLOR:
+                return this.isPieceUnderAttack(this.getWhiteKingPosition());
+            case BLACK_PIECE_COLOR:
+                return this.isPieceUnderAttack(this.getBlackKingPosition());
+        }
     }
 
     /**
@@ -159,6 +173,45 @@ class Board {
         this._currentFEN.push(this.fullMoveCount.toString());  // this is probably correct
 
         return this._currentFEN.join(' ');
+    }
+
+    /**
+     * Verifies white king's current location (in algebraic notation)
+     * @returns string representing white king's position in algebraic notation.
+     * If white king is not found, it returns an empty string instead.
+     */
+    getWhiteKingPosition() {
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                if (
+                    !this._piecesBoard[i][j].isNullPiece() &&
+                    this._piecesBoard[i][j].name === WHITE_KING_NAME
+                ) {
+                    return _intsToAlgebraic(i, j);
+                }
+            }
+        }
+        return '';
+    }
+
+
+    /**
+     * Verifies black king's current location (in algebraic notation).
+     * @returns string representing black king's position in algebraic notation.
+     * If black king is not found, it returns an empty string instead.
+     */
+    getBlackKingPosition() {
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                if (
+                    !this._piecesBoard[i][j].isNullPiece() &&
+                    this._piecesBoard[i][j].name === BLACK_KING_NAME
+                ) {
+                    return _intsToAlgebraic(i, j);
+                }
+            }
+        }
+        return '';
     }
 
     /**

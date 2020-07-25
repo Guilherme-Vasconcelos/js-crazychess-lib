@@ -8,8 +8,12 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
  */
 
 const board = new Board();
-console.log(board._getPiece('e2').legalSquares);
 board.move('e2', 'e4');
-board._updateAllLegalSquares();
-console.log(board._getPiece('e4').legalSquares);
+board.move('e7', 'e5');
+board.move('f2', 'f4');
+board.move('d7', 'd6');
+board.move('a2', 'a3');
+console.log(board.isCheck());
+board.move('d8', 'h4');
+console.log(board.isCheck());
 board.showBoard();
