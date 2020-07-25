@@ -12,17 +12,19 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from './helpers.js
  */
 class Board {
     /**
-     * Creates a board (8x8 matrix)
-     * @param {string} FEN your initial position FEN. If you do not supply this
-     * parameter, you will start with the chess initial position.
-     * @param {boolean} checkless choose if you want to go checkless mode.
-     * When in checkless mode, the board completely ignores checks and mates.
-     * By default, it is set to false (so that the board does not enter
-     * checkless mode)
+     * Creates a board
+     * If you wish to start a traditional chess game at the initial position,
+     * just instantiate the board with new Board(). Otherwise, if you wish to
+     * start with a custom position, supply the FEN argument, e.g.:
+     * {FEN: 'myCustomFEN'}. If you wish to ignore checks, set checkless
+     * to true, e.g.: {checkless: true}.
+     * @param {{FEN: string, checkless: boolean}} Object
      */
     constructor(
-        FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-        checkless = false
+        {
+            FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            checkless = false
+        } = {}
     ) {
         this._setFENPosition(FEN);
         this._pawnsActivateDoubleMove();
