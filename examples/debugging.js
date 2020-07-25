@@ -11,5 +11,5 @@ const board = new Board('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq 
 board.move('f2', 'f4');
 board.move('f7', 'f5');
 board.move('d1', 'h5');
-console.log(board.isPieceUnderAttack('e8'));
+console.log(board._getPiece('a7').isFirstMove);
 board.showBoard();

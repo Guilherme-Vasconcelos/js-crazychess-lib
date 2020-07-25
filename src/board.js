@@ -34,9 +34,7 @@ class Board {
         if (pieceToMove.isNullPiece()) {
             throw new Error(`Initial square ${initialSquare} does not ` +
                 `contain a piece.`);
-        }
-
-        if (pieceToMove.color === _oppositeColor(this.activeColor)) {
+        } else if (pieceToMove.color === _oppositeColor(this.activeColor)) {
             throw new Error(`Expecting move from ${this.activeColor} pieces, ` +
                 `but found move from a ${pieceToMove.color} piece located ` +
                 `at '${initialSquare}'.`);
@@ -53,6 +51,13 @@ class Board {
 
         if (pieceToMove.color === BLACK_PIECE_COLOR) {
             this.fullMoveCount += 1;
+        }
+
+        if (
+            pieceToMove.name === WHITE_PAWN_NAME ||
+            pieceToMove.name === BLACK_PAWN_NAME
+        ) {
+            pieceToMove.isFirstMove = false;
         }
 
         this._placePiece(pieceToMove, targetSquare);
