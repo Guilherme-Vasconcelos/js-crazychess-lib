@@ -1,5 +1,10 @@
 import { Rook, Bishop, Knight, King, Queen, Pawn, NullPiece } from './pieces.js';
-import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
+import {
+    WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_ROOK_NAME, BLACK_ROOK_NAME,
+    WHITE_BISHOP_NAME, BLACK_BISHOP_NAME, WHITE_KNIGHT_NAME, BLACK_KNIGHT_NAME,
+    WHITE_QUEEN_NAME, BLACK_QUEEN_NAME, WHITE_KING_NAME, BLACK_KING_NAME,
+    WHITE_PAWN_NAME, BLACK_PAWN_NAME
+} from './constants.js';
 import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from './helpers.js';
 
 /**
@@ -36,10 +41,6 @@ class Board {
                 `at '${initialSquare}'.`);
         }
 
-        if (pieceToMove.color === BLACK_PIECE_COLOR) {
-            this.fullMoveCount += 1;
-        }
-
         // The move method is, currently, using some kind of "lazy evaluation".
         // Most pieces remain with their legalSquares out of date, and are
         // only updated for a given piece once the programmer wants to move it.
@@ -47,6 +48,10 @@ class Board {
         if (!pieceToMove.legalSquares.has(targetSquare)) {
             throw new Error(`Move ${targetSquare} is not allowed for ` +
                 `piece at ${initialSquare}`);
+        }
+
+        if (pieceToMove.color === BLACK_PIECE_COLOR) {
+            this.fullMoveCount += 1;
         }
 
         this._placePiece(pieceToMove, targetSquare);
@@ -498,8 +503,8 @@ class Board {
         }
 
         switch (pieceToUpdate.name) {
-            case 'R':
-            case 'r': {
+            case WHITE_ROOK_NAME:
+            case BLACK_ROOK_NAME: {
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
@@ -509,8 +514,8 @@ class Board {
 
                 break;
             }
-            case 'B':
-            case 'b': {
+            case WHITE_BISHOP_NAME:
+            case BLACK_BISHOP_NAME: {
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUpLeft(position),
                     ...this._updateLegalSquaresGoUpRight(position),
@@ -520,8 +525,8 @@ class Board {
 
                 break;
             }
-            case 'N':
-            case 'n': {
+            case WHITE_KNIGHT_NAME:
+            case BLACK_KNIGHT_NAME: {
                 let newPositions = [
                     [row + 2, column + 1], [row + 2, column - 1],
                     [row - 2, column + 1], [row - 2, column - 1],
@@ -547,8 +552,8 @@ class Board {
                 pieceToUpdate.legalSquares = legalSquaresFound;
                 break;
             }
-            case 'K':
-            case 'k': {
+            case WHITE_KING_NAME:
+            case BLACK_KING_NAME: {
                 // TODO: In the future king will need to have check/castle
                 let newPositions = [
                     [row - 1, column - 1], [row - 1, column], [row - 1, column + 1],
@@ -574,8 +579,8 @@ class Board {
                 pieceToUpdate.legalSquares = legalSquaresFound;
                 break;
             }
-            case 'Q':
-            case 'q': {
+            case WHITE_QUEEN_NAME:
+            case BLACK_QUEEN_NAME: {
                 pieceToUpdate.legalSquares = new Set([
                     ...this._updateLegalSquaresGoUp(position),
                     ...this._updateLegalSquaresGoDown(position),
@@ -589,8 +594,8 @@ class Board {
 
                 break;
             }
-            case 'P':
-            case 'p': {
+            case WHITE_PAWN_NAME:
+            case BLACK_PAWN_NAME: {
                 // TODO: In the future pawn will need to have en passant and promotions
 
                 // If pawn has WHITE_PIECE_COLOR, only allow for it to move by

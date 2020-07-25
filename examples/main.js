@@ -6,6 +6,6 @@ import Board from '../src/board.js';
  */
 
 const board = new Board();
-board.move('a0', 'f3');
+board.move('a2', 'a4');
 board.showBoard();
 console.log(board.getCurrentFEN());

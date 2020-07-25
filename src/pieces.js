@@ -1,4 +1,9 @@
-import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
+import {
+    WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_ROOK_NAME, BLACK_ROOK_NAME,
+    WHITE_BISHOP_NAME, BLACK_BISHOP_NAME, WHITE_KNIGHT_NAME, BLACK_KNIGHT_NAME,
+    WHITE_QUEEN_NAME, BLACK_QUEEN_NAME, WHITE_KING_NAME, BLACK_KING_NAME,
+    WHITE_PAWN_NAME, BLACK_PAWN_NAME, NULL_PIECE_NAME
+} from './constants.js';
 
 /**
  * Base class for Piece classes. Should not be used directly by the user.
@@ -27,7 +32,7 @@ class Piece {
      * Checks if piece is null
      */
     isNullPiece() {
-        return this.name === '.';
+        return this.name === NULL_PIECE_NAME;
     }
 }
 
@@ -44,10 +49,10 @@ class Rook extends Piece {
         super(color);
         switch (this.color) {
             case WHITE_PIECE_COLOR:
-                this.name = 'R';
+                this.name = WHITE_ROOK_NAME;
                 break;
             case BLACK_PIECE_COLOR:
-                this.name = 'r';
+                this.name = BLACK_ROOK_NAME;
                 break;
         }
     }
@@ -66,10 +71,10 @@ class Bishop extends Piece {
         super(color);
         switch (this.color) {
             case WHITE_PIECE_COLOR:
-                this.name = 'B';
+                this.name = WHITE_BISHOP_NAME;
                 break;
             case BLACK_PIECE_COLOR:
-                this.name = 'b';
+                this.name = BLACK_BISHOP_NAME;
                 break;
         }
     }
@@ -88,10 +93,10 @@ class Knight extends Piece {
         super(color);
         switch (this.color) {
             case WHITE_PIECE_COLOR:
-                this.name = 'N';
+                this.name = WHITE_KNIGHT_NAME;
                 break;
             case BLACK_PIECE_COLOR:
-                this.name = 'n';
+                this.name = BLACK_KNIGHT_NAME;
                 break;
         }
     }
@@ -110,10 +115,10 @@ class King extends Piece {
         super(color);
         switch (this.color) {
             case WHITE_PIECE_COLOR:
-                this.name = 'K';
+                this.name = WHITE_KING_NAME;
                 break;
             case BLACK_PIECE_COLOR:
-                this.name = 'k';
+                this.name = BLACK_KING_NAME;
                 break;
         }
     }
@@ -132,10 +137,10 @@ class Queen extends Piece {
         super(color);
         switch (this.color) {
             case WHITE_PIECE_COLOR:
-                this.name = 'Q';
+                this.name = WHITE_QUEEN_NAME;
                 break;
             case BLACK_PIECE_COLOR:
-                this.name = 'q';
+                this.name = BLACK_QUEEN_NAME;
                 break;
         }
     }
@@ -159,10 +164,10 @@ class Pawn extends Piece {
         this.isFirstMove = false;
         switch (this.color) {
             case WHITE_PIECE_COLOR:
-                this.name = 'P';
+                this.name = WHITE_PAWN_NAME;
                 break;
             case BLACK_PIECE_COLOR:
-                this.name = 'p';
+                this.name = BLACK_PAWN_NAME;
                 break;
         }
     }
@@ -179,7 +184,7 @@ class NullPiece extends Piece {
         // or black, so we need to pass one of these arguments even if we
         // will change the color right after.
         super(WHITE_PIECE_COLOR);
-        this.name = '.';
+        this.name = NULL_PIECE_NAME;
         this.color = null;
         this.legalSquares = null;
     }

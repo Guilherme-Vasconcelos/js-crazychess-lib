@@ -12,3 +12,4 @@ export const WHITE_KING_NAME = 'K';
 export const BLACK_KING_NAME = 'k';
 export const WHITE_PAWN_NAME = 'P';
 export const BLACK_PAWN_NAME = 'p';
+export const NULL_PIECE_NAME = '.';
