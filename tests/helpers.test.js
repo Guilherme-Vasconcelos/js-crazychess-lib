@@ -1,4 +1,5 @@
 import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from '../src/helpers.js';
+import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
 
 test('Valid ints to algebraic conversions', () => {
     const valuesForColumns = {
@@ -34,6 +35,21 @@ test('Valid algebraic to ints conversions', () => {
     positions.forEach(([algebraicPosition, row, column]) => {
         expect(_algebraicToInts(algebraicPosition)[0]).toBe(row);
         expect(_algebraicToInts(algebraicPosition)[1]).toBe(column);
+    });
+});
+
+test('Valid colors to oppose', () => {
+    expect(_oppositeColor(WHITE_PIECE_COLOR)).toBe(BLACK_PIECE_COLOR);
+    expect(_oppositeColor(BLACK_PIECE_COLOR)).toBe(WHITE_PIECE_COLOR);
+});
+
+test('Invalid colors to oppose', () => {
+    const colors = ['orange', 'asdasd', null, undefined];
+
+    colors.forEach(color => {
+        expect(() => {
+            _oppositeColor(color);
+        }).toThrow('Invalid color');
     });
 });
 

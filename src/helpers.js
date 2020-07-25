@@ -5,8 +5,14 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
  * @param {string} color color to return the opposite (use constants.js)
  */
 function _oppositeColor(color) {
-    if (color === WHITE_PIECE_COLOR) return BLACK_PIECE_COLOR;
-    return WHITE_PIECE_COLOR;
+    switch (color) {
+        case WHITE_PIECE_COLOR:
+            return BLACK_PIECE_COLOR;
+        case BLACK_PIECE_COLOR:
+            return WHITE_PIECE_COLOR;
+        default:
+            throw new Error(`Invalid color ${color}`)
+    }
 }
 
 /**

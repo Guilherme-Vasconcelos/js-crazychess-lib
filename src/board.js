@@ -29,6 +29,7 @@ class Board {
      * notation.
      */
     move(initialSquare, targetSquare) {
+        // @TODO: when a Pawn moves, the .isFirstMove attribute must be set to false.
         const pieceToMove = this._getPiece(initialSquare);
         if (pieceToMove.isNullPiece()) {
             throw new Error(`Initial square ${initialSquare} does not ` +
@@ -71,6 +72,36 @@ class Board {
             output += '\n';
         }
         console.log(output);
+    }
+
+    /**
+     * Checks if piece at a given position is under attack.
+     * @param {string} piecePosition position in algebraic notation
+     * where piece to verify is located (e.g. 'a1', 'b5').
+     * @returns boolean true if piece at piecePosition is under attack
+     * by some piece, else false.
+     */
+    isPieceUnderAttack(piecePosition) {
+        this._updateAllLegalSquares();
+        const pieceToVerify = this._getPiece(piecePosition);
+        if (pieceToVerify.isNullPiece()) {
+            throw new Error(`Board.isPieceUnderAttack does not work for empty` +
+                ` positions. You entered '${piecePosition}'.`);
+        }
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                const currentPiece = this._piecesBoard[i][j];
+                if (
+                    !currentPiece.isNullPiece() &&
+                    currentPiece.color === _oppositeColor(pieceToVerify.color) &&
+                    currentPiece.legalSquares.has(piecePosition)
+                ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
