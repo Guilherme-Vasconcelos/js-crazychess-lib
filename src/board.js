@@ -201,10 +201,7 @@ class Board {
     getWhiteKingPosition() {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
-                if (
-                    !this._piecesBoard[i][j].isNullPiece() &&
-                    this._piecesBoard[i][j].name === WHITE_KING_NAME
-                ) {
+                if (this._piecesBoard[i][j].name === WHITE_KING_NAME) {
                     return _intsToAlgebraic(i, j);
                 }
             }
@@ -221,10 +218,7 @@ class Board {
     getBlackKingPosition() {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
-                if (
-                    !this._piecesBoard[i][j].isNullPiece() &&
-                    this._piecesBoard[i][j].name === BLACK_KING_NAME
-                ) {
+                if (this._piecesBoard[i][j].name === BLACK_KING_NAME) {
                     return _intsToAlgebraic(i, j);
                 }
             }
@@ -239,7 +233,8 @@ class Board {
      */
     _kingsExist() {
         if (
-            this.getWhiteKingPosition() === '' || this.getBlackKingPosition() === ''
+            this.getWhiteKingPosition() === '' ||
+            this.getBlackKingPosition() === ''
         ) {
             throw new Error('Kings have not been found in loaded FEN.\nIf you ' +
                 'wish to play a checkless game, set the checkless board ' + 
