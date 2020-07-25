@@ -12,13 +12,22 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from './helpers.js
  */
 class Board {
     /**
-     * Creates a board (8x8 matrix) with the given FEN. If you do not supply
-     * an initial FEN, the board will start at the initial position.
+     * Creates a board (8x8 matrix)
+     * @param {string} FEN your initial position FEN. If you do not supply this
+     * parameter, you will start with the chess initial position.
+     * @param {boolean} checkless choose if you want to go checkless mode.
+     * When in checkless mode, the board completely ignores checks and mates.
+     * By default, it is set to false (so that the board does not enter
+     * checkless mode)
      */
-    constructor(FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') {
+    constructor(
+        FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        checkless = false
+    ) {
         this._setFENPosition(FEN);
         this._pawnsActivateDoubleMove();
         this._updateAllLegalSquares();
+        this._checkless = checkless;
     }
 
     /**
@@ -61,7 +70,11 @@ class Board {
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
-        // if active color is in check then throw error.
+        if (this.isCheck() && !this._checkless) {
+            throw new Error(`Illegal move because ${this.activeColor} is in check. ` +
+                `If you wish to ignore checks, change board's constructor parameter` +
+                ` 'checkless' to true.`);
+        }
         this.activeColor = _oppositeColor(pieceToMove.color);
     }
 
