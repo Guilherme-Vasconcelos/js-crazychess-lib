@@ -80,7 +80,8 @@ class Board {
                 `'${targetSquare}' because ${this.activeColor}'s king is or ` +
                 `would be in check after the move.\nIf you wish to ignore ` +
                 `checks, change board's constructor parameter 'checkless' to ` +
-                `true.`);
+                `true.\nConsider calling Board.isCheckmate() to verify if you ` +
+                `have a mate position.`);
         }
         this.activeColor = _oppositeColor(pieceToMove.color);
     }
@@ -140,6 +141,15 @@ class Board {
             case BLACK_PIECE_COLOR:
                 return this.isPieceUnderAttack(this.getBlackKingPosition());
         }
+    }
+
+    /**
+     * Checks if current position is checkmate.
+     * @returns boolean true if position is checkmate, else false.
+     */
+    isCheckmate() {
+        // TODO
+        return false;
     }
 
     /**

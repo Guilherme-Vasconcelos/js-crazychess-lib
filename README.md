@@ -23,6 +23,7 @@ You can check out examples/main.js to see the main usage, but here are a few ste
     - `const board = new Board({FEN: 'rnbqkbnr/pppp1p1p/8/8/2B1Pp2/5Q2/PPPP2PP/RNB2RK1 b kq - 0 6'});`
     - `const board = new Board();`
     - `const board = new Board({checkless: true});`
+
 If you just want the chess to be a traditional game without any other additional rules, there is no reason to supply any parameters to the Board object constructor other than (possibly) the FEN, if you wish to have a custom position.
 - Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. Keep in mind we still have no support for checks and mates, en passant and castling, plus some features that have been added are still being tested.
 - Show board: `board.showBoard();` will print a text representation of the board.

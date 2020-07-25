@@ -8,4 +8,9 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
  */
 
 const board = new Board();
+let t = new Date();
+board.move('e2', 'e4');
+board.move('e7', 'e5');
+board.move('f2', 'f4');
 board.showBoard();
+console.log(`${new Date() - t}ms`);
