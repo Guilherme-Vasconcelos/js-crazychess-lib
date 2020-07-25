@@ -27,6 +27,9 @@ class Board {
         this._setFENPosition(FEN);
         this._pawnsActivateDoubleMove();
         this._updateAllLegalSquares();
+        if (!checkless) {
+            this._kingsExist();
+        }
         this._checkless = checkless;
     }
 
@@ -70,7 +73,7 @@ class Board {
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
-        if (this.isCheck() && !this._checkless) {
+        if (!this._checkless && this.isCheck()) {
             throw new Error(`Illegal move '${initialSquare}' to ` +
                 `'${targetSquare}' because ${this.activeColor}'s king is or ` +
                 `would be in check after the move.\nIf you wish to ignore ` +
@@ -227,6 +230,18 @@ class Board {
             }
         }
         return '';
+    }
+
+    _kingsExist() {
+        if (
+            this.getWhiteKingPosition() === '' || this.getBlackKingPosition() === ''
+        ) {
+            throw new Error('Kings have not been found in loaded FEN. If you ' +
+                'wish to play a checkless game, set the checkless board ' + 
+                'constructor parameter to true.');
+        }
+
+        return true;
     }
 
     /**

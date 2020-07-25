@@ -18,7 +18,7 @@ You can check out examples/main.js to see the main usage, but here are a few ste
 - To import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory). The code is built so that you only have to import the board.js file, which means after this you are ready to go.
 - Instance board: `const board = new Board();`. The Board class actually takes two optional parameters:
   - First parameter: your FEN position. If you do not supply this parameter, the game will start in the default classic chess position.
-  - Second parameter: checkless. This is set to false by default. If you set it to true, the board will completely ignore all checks and mates.
+  - Second parameter: checkless. This is set to false by default. If you set it to true, the board will completely ignore all checks and mates, in which case the king becomes just a regular piece.
 - Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. Keep in mind we still have no support for checks and mates, en passant and castling, plus some features that have been added are still being tested.
 - Show board: `board.showBoard();` will print a text representation of the board.
 - By convention, **Board methods and attributes that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when a specific thing happens. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
