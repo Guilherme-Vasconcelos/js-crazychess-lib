@@ -7,5 +7,6 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
  * files you actually need are the ones inside src directory (see usage at README).
  */
 
-const board = new Board({FEN: 'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1'});
+const board = new Board();
 board.showBoard();
+console.log(board._getPiece('a7').isPawn());

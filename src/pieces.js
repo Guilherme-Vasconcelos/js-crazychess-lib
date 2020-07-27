@@ -34,6 +34,13 @@ class Piece {
     isNullPiece() {
         return this.name === NULL_PIECE_NAME;
     }
+
+    /**
+     * Checks if piece is pawn
+     */
+    isPawn() {
+        return [BLACK_PAWN_NAME, WHITE_PAWN_NAME].includes(this.name);
+    }
 }
 
 /**

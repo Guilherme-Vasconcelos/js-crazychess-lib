@@ -31,7 +31,7 @@ class Board {
         if (!checkless) {
             this._kingsExist();
         }
-        this._checkless = checkless;
+        this.checkless = checkless;
     }
 
     /**
@@ -74,7 +74,7 @@ class Board {
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
-        if (!this._checkless && this.isCheck()) {
+        if (!this.checkless && this.isCheck()) {
             throw new Error(`Illegal move '${initialSquare}' to ` +
                 `'${targetSquare}' because ${this.activeColor}'s king is or ` +
                 `would be in check after the move.\nIf you wish to ignore ` +
@@ -154,16 +154,21 @@ class Board {
      * @returns boolean true if position is checkmate, else false.
      */
     isCheckmate() {
-        // TODO
         // This algorithm will be some kind of brute force initially too
         // (just like isPieceUnderAttack). It will move every possible legal
         // move (for the color being checked) and verify if it's still a check
         // position. If so, then in the end return true.
         // We may want to refine this algorithm later if performance becomes
         // an issue.
-        if (!this.isCheck()) {
+        if (this.checkless) {
+            throw new Error(`It does not make sense to call Board.isCheckmate() ` +
+                `in a game of type checkless.\nIf you wish not to ignore checks ` +
+                `anymore, change Board's constructor parameter 'checkless' ` +
+                `to false.`);
+        } else if (!this.isCheck()) {
             return false;
         }
+        // TODO
         return true;
     }
 
