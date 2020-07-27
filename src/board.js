@@ -27,7 +27,6 @@ class Board {
         } = {}
     ) {
         this._setFENPosition(FEN);
-        this._pawnsActivateDoubleMove();
         this._updateAllLegalSquares();
         if (!checkless) {
             this._kingsExist();
@@ -108,6 +107,13 @@ class Board {
      * by some piece, else false.
      */
     isPieceUnderAttack(piecePosition) {
+        // This function is kind of a brute force for now. In order to check
+        // if piece A is under attack, it updates all legal moves from every
+        // piece at the board, then for each piece (of opposite color to A)
+        // verify if the piece being verified has A's position as a legal
+        // square. If so, then A is under attack (by some unspecified piece).
+        // We may want to refine this algorithm in the future if performance
+        // becomes an issue.
         this._updateAllLegalSquares();
         const pieceToVerify = this._getPiece(piecePosition);
         if (pieceToVerify.isNullPiece()) {
@@ -149,7 +155,24 @@ class Board {
      */
     isCheckmate() {
         // TODO
-        return false;
+        // This algorithm will be some kind of brute force initially too
+        // (just like isPieceUnderAttack). It will move every possible legal
+        // move (for the color being checked) and verify if it's still a check
+        // position. If so, then in the end return true.
+        // We may want to refine this algorithm later if performance becomes
+        // an issue.
+        if (!this.isCheck()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if current position is stalemate.
+     * @returns boolean true if position is stalemate, else false.
+     */
+    isStalemate() {
+        // TODO
     }
 
     /**
@@ -261,10 +284,11 @@ class Board {
      * @param {string} FEN FEN for the position to be set
      */
     _setFENPosition(FEN) {
+        // TODO (still need to add full support to FEN)
         this._piecesBoard = [];
         let row = [];
         FEN = FEN.split(' ');
-        // For now only piecesPlacement and activeColor are used,
+        // For now only piecesPlacement, activeColor, and fullMove are used,
         // but the others will be used too soon
         const [
             piecesPlacement, activeColor, castling,
@@ -317,6 +341,8 @@ class Board {
         }
 
         this.fullMoveCount = parseInt(fullMove, 10);
+
+        this._pawnsActivateDoubleMove();
     }
 
     /**
