@@ -1,6 +1,6 @@
 import Board from '../src/board.js';
 import {
-    WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_ROOK_NAME, BLACK_ROOK_NAME
+    WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_ROOK_NAME, BLACK_ROOK_NAME, NULL_PIECE_NAME
 } from '../src/constants.js';
 
 test('Rooks valid general movements with simple position', () => {
@@ -17,13 +17,13 @@ test('Rooks valid general movements with simple position', () => {
         // Variable to store color because board.move will switch the activeColor
         const movedPieceColor = board.activeColor;
         board.move(initialSquare, targetSquare);
-        expect(board._getPiece(initialSquare).isNullPiece()).toBe(true);
+        expect(board.getPieceNameAt(initialSquare)).toBe(NULL_PIECE_NAME);
         switch (movedPieceColor) {
             case WHITE_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(WHITE_ROOK_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(WHITE_ROOK_NAME);
                 break;
             case BLACK_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(BLACK_ROOK_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(BLACK_ROOK_NAME);
                 break;
         }
     });
@@ -42,13 +42,13 @@ test('Rooks valid general movements with more pieces and randomly placed', () =>
         // Variable to store color because board.move will switch the activeColor
         const movedPieceColor = board.activeColor;
         board.move(initialSquare, targetSquare);
-        expect(board._getPiece(initialSquare).isNullPiece()).toBe(true);
+        expect(board.getPieceNameAt(initialSquare)).toBe(NULL_PIECE_NAME);
         switch (movedPieceColor) {
             case WHITE_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(WHITE_ROOK_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(WHITE_ROOK_NAME);
                 break;
             case BLACK_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(BLACK_ROOK_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(BLACK_ROOK_NAME);
                 break;
         }
     });

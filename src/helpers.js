@@ -4,7 +4,7 @@ import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from './constants.js';
  * Function returns the opposite to the given color
  * @param {string} color color to return the opposite (use constants.js)
  */
-function _oppositeColor(color) {
+function oppositeColor(color) {
     switch (color) {
         case WHITE_PIECE_COLOR:
             return BLACK_PIECE_COLOR;
@@ -21,7 +21,7 @@ function _oppositeColor(color) {
  * @param {string} algebraicPosition position in algebraic notation
  * @returns array of integers [row, column]
  */
-function _algebraicToInts(algebraicPosition) {
+function algebraicToInts(algebraicPosition) {
     if (algebraicPosition[0] < 'a' || algebraicPosition[0] > 'h'
         || algebraicPosition[1] < '1' || algebraicPosition[1] > '8') {
         throw new Error(`Algebraic positions must be between ` +
@@ -41,7 +41,7 @@ function _algebraicToInts(algebraicPosition) {
  * @param {Number} column position's column (from 0 to 7)
  * @returns string with the corresponding algebraic notation
  */
-function _intsToAlgebraic(row, column) {
+function intsToAlgebraic(row, column) {
     if (!Number.isInteger(row) || !Number.isInteger(column)) {
         throw new Error(`Board rows and columns must be integers. ` +
             `You entered: [${row}, ${column}].`);
@@ -58,7 +58,7 @@ function _intsToAlgebraic(row, column) {
 }
 
 export {
-    _oppositeColor,
-    _algebraicToInts,
-    _intsToAlgebraic
+    oppositeColor,
+    algebraicToInts,
+    intsToAlgebraic
 }

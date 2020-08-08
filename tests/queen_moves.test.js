@@ -1,6 +1,6 @@
 import Board from '../src/board.js';
 import {
-    WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_QUEEN_NAME, BLACK_QUEEN_NAME
+    WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_QUEEN_NAME, BLACK_QUEEN_NAME, NULL_PIECE_NAME
 } from '../src/constants.js';
 
 test('Queens valid general moves with a simple position', () => {
@@ -17,13 +17,13 @@ test('Queens valid general moves with a simple position', () => {
     moves.forEach(([initialSquare, targetSquare]) => {
         const movedPieceColor = board.activeColor;
         board.move(initialSquare, targetSquare);
-        expect(board._getPiece(initialSquare).isNullPiece()).toBe(true);
+        expect(board.getPieceNameAt(initialSquare)).toBe(NULL_PIECE_NAME);
         switch (movedPieceColor) {
             case WHITE_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(WHITE_QUEEN_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(WHITE_QUEEN_NAME);
                 break;
             case BLACK_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(BLACK_QUEEN_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(BLACK_QUEEN_NAME);
                 break;
         }
     });
@@ -43,13 +43,13 @@ test('Queens valid general moves with more pieces and randomly placed', () => {
     moves.forEach(([initialSquare, targetSquare]) => {
         const movedPieceColor = board.activeColor;
         board.move(initialSquare, targetSquare);
-        expect(board._getPiece(initialSquare).isNullPiece()).toBe(true);
+        expect(board.getPieceNameAt(initialSquare)).toBe(NULL_PIECE_NAME);
         switch (movedPieceColor) {
             case WHITE_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(WHITE_QUEEN_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(WHITE_QUEEN_NAME);
                 break;
             case BLACK_PIECE_COLOR:
-                expect(board._getPiece(targetSquare).name).toBe(BLACK_QUEEN_NAME);
+                expect(board.getPieceNameAt(targetSquare)).toBe(BLACK_QUEEN_NAME);
                 break;
         }
     });

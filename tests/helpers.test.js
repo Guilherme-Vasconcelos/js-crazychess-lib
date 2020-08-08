@@ -1,4 +1,4 @@
-import { _oppositeColor, _algebraicToInts, _intsToAlgebraic} from '../src/helpers.js';
+import { oppositeColor, algebraicToInts, intsToAlgebraic} from '../src/helpers.js';
 import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
 
 test('Valid ints to algebraic conversions', () => {
@@ -15,7 +15,7 @@ test('Valid ints to algebraic conversions', () => {
     });
 
     positions.forEach(([algebraicPosition, row, column]) => {
-        expect(_intsToAlgebraic(row, column)).toBe(algebraicPosition);
+        expect(intsToAlgebraic(row, column)).toBe(algebraicPosition);
     });
 });
 
@@ -33,14 +33,14 @@ test('Valid algebraic to ints conversions', () => {
     });
 
     positions.forEach(([algebraicPosition, row, column]) => {
-        expect(_algebraicToInts(algebraicPosition)[0]).toBe(row);
-        expect(_algebraicToInts(algebraicPosition)[1]).toBe(column);
+        expect(algebraicToInts(algebraicPosition)[0]).toBe(row);
+        expect(algebraicToInts(algebraicPosition)[1]).toBe(column);
     });
 });
 
 test('Valid colors to oppose', () => {
-    expect(_oppositeColor(WHITE_PIECE_COLOR)).toBe(BLACK_PIECE_COLOR);
-    expect(_oppositeColor(BLACK_PIECE_COLOR)).toBe(WHITE_PIECE_COLOR);
+    expect(oppositeColor(WHITE_PIECE_COLOR)).toBe(BLACK_PIECE_COLOR);
+    expect(oppositeColor(BLACK_PIECE_COLOR)).toBe(WHITE_PIECE_COLOR);
 });
 
 test('Invalid colors to oppose', () => {
@@ -48,7 +48,7 @@ test('Invalid colors to oppose', () => {
 
     colors.forEach(color => {
         expect(() => {
-            _oppositeColor(color);
+            oppositeColor(color);
         }).toThrow('Invalid color');
     });
 });
@@ -63,7 +63,7 @@ test('Helper handles invalid ints to algebraic conversions', () => {
 
     positions.forEach(([row, column]) => {
         expect(() => {
-            _intsToAlgebraic(row, column);
+            intsToAlgebraic(row, column);
         }).toThrow();
     });
 });
@@ -79,7 +79,7 @@ test('Helper handles invalid algebraic to ints conversions', () => {
 
     positions.forEach(position => {
         expect(() => {
-            _algebraicToInts(position);
+            algebraicToInts(position);
         }).toThrow();
     });
 });

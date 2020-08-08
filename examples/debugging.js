@@ -1,5 +1,5 @@
 import Board from '../src/board.js';
-import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpers.js';
+import { oppositeColor, algebraicToInts, intsToAlgebraic } from '../src/helpers.js';
 
 /**
  * This file is mainly used for making sure new functionalities are working

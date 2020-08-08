@@ -5,7 +5,7 @@ import {
     WHITE_QUEEN_NAME, BLACK_QUEEN_NAME, WHITE_KING_NAME, BLACK_KING_NAME,
     WHITE_PAWN_NAME, BLACK_PAWN_NAME
 } from './constants.js';
-import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from './helpers.js';
+import { oppositeColor, algebraicToInts, intsToAlgebraic } from './helpers.js';
 
 /**
  * Class used to represent the chess board.
@@ -46,7 +46,7 @@ class Board {
         if (pieceToMove.isNullPiece()) {
             throw new Error(`Initial square ${initialSquare} does not ` +
                 `contain a piece.`);
-        } else if (pieceToMove.color === _oppositeColor(this.activeColor)) {
+        } else if (pieceToMove.color === oppositeColor(this.activeColor)) {
             throw new Error(`Expecting move from ${this.activeColor} pieces, ` +
                 `but found move from a ${pieceToMove.color} piece located ` +
                 `at '${initialSquare}'.`);
@@ -80,7 +80,7 @@ class Board {
                 `true.\nConsider calling Board.isCheckmate() to verify if you ` +
                 `have a mate position.`);
         }
-        this.activeColor = _oppositeColor(pieceToMove.color);
+        this.activeColor = oppositeColor(pieceToMove.color);
     }
 
     /**
@@ -115,7 +115,7 @@ class Board {
                 const currentPiece = this._piecesBoard[i][j];
                 if (
                     !currentPiece.isNullPiece() &&
-                    currentPiece.color === _oppositeColor(pieceToVerify.color) &&
+                    currentPiece.color === oppositeColor(pieceToVerify.color) &&
                     currentPiece.legalSquares.has(piecePosition)
                 ) {
                     return true;
@@ -124,6 +124,30 @@ class Board {
         }
 
         return false;
+    }
+
+    /**
+     * Returns the name of whatever piece is in piecePosition
+     * (in algebraic notation). Use constants.js.
+     * @param {string} piecePosition position in algebraic notation
+     * where piece to get name is located
+     * @returns the name of the piece (use constants.js)
+     */
+    getPieceNameAt(piecePosition) {
+        const [ row, column ] = algebraicToInts(piecePosition);
+        return this._piecesBoard[row][column].name;
+    }
+
+    /**
+     * Returns the color of whatever piece is in piecePosition
+     * (in algebraic notation). Use constants.js.
+     * @param {string} piecePosition position in algebraic notation
+     * where piece to get color is located
+     * @returns the color of the piece (use constants.js)
+     */
+    getPieceColorAt(piecePosition) {
+        const [ row, column ] = algebraicToInts(piecePosition);
+        return this._piecesBoard[row][column].color;
     }
 
     /**
@@ -232,7 +256,7 @@ class Board {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
                 if (this._piecesBoard[i][j].name === WHITE_KING_NAME) {
-                    return _intsToAlgebraic(i, j);
+                    return intsToAlgebraic(i, j);
                 }
             }
         }
@@ -249,7 +273,7 @@ class Board {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
                 if (this._piecesBoard[i][j].name === BLACK_KING_NAME) {
-                    return _intsToAlgebraic(i, j);
+                    return intsToAlgebraic(i, j);
                 }
             }
         }
@@ -348,7 +372,7 @@ class Board {
      * e.g.: 'e4', 'a1', etc.
      */
     _placePiece(piece, position) {
-        let [ row, column ] = _algebraicToInts(position);
+        let [ row, column ] = algebraicToInts(position);
         this._piecesBoard[row][column] = piece;
     }
 
@@ -359,7 +383,7 @@ class Board {
      * @returns piece at given position (in algebraic notation)
      */
     _getPiece(position) {
-        let [ row, column ] = _algebraicToInts(position);
+        let [ row, column ] = algebraicToInts(position);
         return (
             this._piecesBoard[row][column]
         );
@@ -378,7 +402,7 @@ class Board {
         ]
 
         initialPositionsPawns.forEach(position => {
-            const [ row, column ] = _algebraicToInts(position);
+            const [ row, column ] = algebraicToInts(position);
             this._piecesBoard[row][column].isFirstMove = true;
         });
     }
@@ -390,7 +414,7 @@ class Board {
         for (let i = 0; i < 8; ++i) {
             for (let j = 0; j < 8; ++j) {
                 if (!this._piecesBoard[i][j].isNullPiece()) {
-                    this._updateLegalSquares(_intsToAlgebraic(i, j));
+                    this._updateLegalSquares(intsToAlgebraic(i, j));
                 }
             }
         }
@@ -406,15 +430,15 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoUp(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         for (let rowUp = row + 1; rowUp < 8; ++rowUp) {
             if (rowUp > 7) break;
             if (this._piecesBoard[rowUp][column].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
-            } else if (this._piecesBoard[rowUp][column].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
+                legalSquaresFound.add(intsToAlgebraic(rowUp, column));
+            } else if (this._piecesBoard[rowUp][column].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(rowUp, column));
                 break;
             } else {
                 break;
@@ -434,15 +458,15 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoDown(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         for (let rowDown = row - 1; rowDown > -1; --rowDown) {
             if (rowDown < 0) break;
             if (this._piecesBoard[rowDown][column].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(rowDown, column));
-            } else if (this._piecesBoard[rowDown][column].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(rowDown, column));
+                legalSquaresFound.add(intsToAlgebraic(rowDown, column));
+            } else if (this._piecesBoard[rowDown][column].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(rowDown, column));
                 break;
             } else {
                 break;
@@ -461,15 +485,15 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoLeft(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         for (let colLeft = column - 1; colLeft > -1; --colLeft) {
             if (colLeft < 0) break;
             if (this._piecesBoard[row][colLeft].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(row, colLeft));
-            } else if (this._piecesBoard[row][colLeft].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(row, colLeft));
+                legalSquaresFound.add(intsToAlgebraic(row, colLeft));
+            } else if (this._piecesBoard[row][colLeft].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(row, colLeft));
                 break;
             } else {
                 break;
@@ -488,15 +512,15 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoRight(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         for (let colRight = column + 1; colRight < 8; ++colRight) {
             if (colRight > 7) break;
             if (this._piecesBoard[row][colRight].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(row, colRight));
-            } else if (this._piecesBoard[row][colRight].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(row, colRight));
+                legalSquaresFound.add(intsToAlgebraic(row, colRight));
+            } else if (this._piecesBoard[row][colRight].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(row, colRight));
                 break;
             } else {
                 break;
@@ -517,7 +541,7 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoUpLeft(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         
@@ -528,9 +552,9 @@ class Board {
         ) {
             if (rowUp > 7 || colLeft < 0) break;
             if (this._piecesBoard[rowUp][colLeft].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(rowUp, colLeft));
-            } else if (this._piecesBoard[rowUp][colLeft].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(rowUp, colLeft));
+                legalSquaresFound.add(intsToAlgebraic(rowUp, colLeft));
+            } else if (this._piecesBoard[rowUp][colLeft].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(rowUp, colLeft));
                 break;
             } else {
                 break;
@@ -551,7 +575,7 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoUpRight(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         
@@ -562,9 +586,9 @@ class Board {
         ) {
             if (rowUp > 7 || colRight > 7) break;
             if (this._piecesBoard[rowUp][colRight].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(rowUp, colRight));
-            } else if (this._piecesBoard[rowUp][colRight].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(rowUp, colRight));
+                legalSquaresFound.add(intsToAlgebraic(rowUp, colRight));
+            } else if (this._piecesBoard[rowUp][colRight].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(rowUp, colRight));
                 break;
             } else {
                 break;
@@ -585,7 +609,7 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoDownLeft(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         
@@ -596,9 +620,9 @@ class Board {
         ) {
             if (rowDown < 0 || colLeft < 0) break;
             if (this._piecesBoard[rowDown][colLeft].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(rowDown, colLeft));
-            } else if (this._piecesBoard[rowDown][colLeft].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(rowDown, colLeft));
+                legalSquaresFound.add(intsToAlgebraic(rowDown, colLeft));
+            } else if (this._piecesBoard[rowDown][colLeft].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(rowDown, colLeft));
                 break;
             } else {
                 break;
@@ -619,7 +643,7 @@ class Board {
      * @returns Set of strings (algebraic positions found)
      */
     _updateLegalSquaresGoDownRight(initialPosition) {
-        const [ row, column ] = _algebraicToInts(initialPosition);
+        const [ row, column ] = algebraicToInts(initialPosition);
         const pieceColor = this._piecesBoard[row][column].color;
         const legalSquaresFound = new Set();
         
@@ -630,9 +654,9 @@ class Board {
         ) {
             if (rowDown < 0 || colRight > 7) break;
             if (this._piecesBoard[rowDown][colRight].isNullPiece()) {
-                legalSquaresFound.add(_intsToAlgebraic(rowDown, colRight));
-            } else if (this._piecesBoard[rowDown][colRight].color === _oppositeColor(pieceColor)) {
-                legalSquaresFound.add(_intsToAlgebraic(rowDown, colRight));
+                legalSquaresFound.add(intsToAlgebraic(rowDown, colRight));
+            } else if (this._piecesBoard[rowDown][colRight].color === oppositeColor(pieceColor)) {
+                legalSquaresFound.add(intsToAlgebraic(rowDown, colRight));
                 break;
             } else {
                 break;
@@ -648,7 +672,7 @@ class Board {
      */
     _updateLegalSquares(position) {
         const pieceToUpdate = this._getPiece(position);
-        const [ row, column ] = _algebraicToInts(position);
+        const [ row, column ] = algebraicToInts(position);
         if (pieceToUpdate.isNullPiece()) {
             throw new Error(`Given position ${position} does not contain a piece.`);
         }
@@ -694,9 +718,9 @@ class Board {
                     const cPiece = this._piecesBoard[newRow][newColumn];
                     if (
                         cPiece.isNullPiece() ||
-                        cPiece.color === _oppositeColor(pieceToUpdate.color)
+                        cPiece.color === oppositeColor(pieceToUpdate.color)
                     ) {
-                        legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
+                        legalSquaresFound.add(intsToAlgebraic(newRow, newColumn));
                     }
                 });
 
@@ -721,9 +745,9 @@ class Board {
                     const cPiece = this._piecesBoard[newRow][newColumn];
                     if (
                         cPiece.isNullPiece() ||
-                        cPiece.color === _oppositeColor(pieceToUpdate.color)
+                        cPiece.color === oppositeColor(pieceToUpdate.color)
                     ) {
-                        legalSquaresFound.add(_intsToAlgebraic(newRow, newColumn));
+                        legalSquaresFound.add(intsToAlgebraic(newRow, newColumn));
                     }
                 });
 
@@ -764,14 +788,14 @@ class Board {
                 // Moving forward
                 const legalSquaresFound = new Set();
                 if (this._piecesBoard[rowUp][column].isNullPiece()) {
-                    legalSquaresFound.add(_intsToAlgebraic(rowUp, column));
+                    legalSquaresFound.add(intsToAlgebraic(rowUp, column));
                     
                     if (
                         this._piecesBoard[twoRowsUp][column].isNullPiece()
                         && pieceToUpdate.isFirstMove
                     ) {
                         legalSquaresFound.add(
-                            _intsToAlgebraic(twoRowsUp, column)
+                            intsToAlgebraic(twoRowsUp, column)
                         );
                     }
                 }
@@ -785,10 +809,10 @@ class Board {
                     if (
                         !this._piecesBoard[rowUp][column + col].isNullPiece() &&
                         this._piecesBoard[rowUp][column + col]
-                            .color === _oppositeColor(pieceToUpdate.color)
+                            .color === oppositeColor(pieceToUpdate.color)
                     ) {
                         legalSquaresFound.add(
-                            _intsToAlgebraic(rowUp, column + col)
+                            intsToAlgebraic(rowUp, column + col)
                         );
                     }
                 });

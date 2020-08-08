@@ -32,17 +32,17 @@ test('Initial positions are set correctly', () => {
     ]
 
     coordsPositionsWhitePieces.forEach(([coord, name]) => {
-        expect(board._getPiece(coord).name).toBe(name);
-        expect(board._getPiece(coord).color).toBe(WHITE_PIECE_COLOR);
+        expect(board.getPieceNameAt(coord)).toBe(name);
+        expect(board.getPieceColorAt(coord)).toBe(WHITE_PIECE_COLOR);
     });
 
     coordsPositionsBlackPieces.forEach(([coord, name]) => {
-        expect(board._getPiece(coord).name).toBe(name);
-        expect(board._getPiece(coord).color).toBe(BLACK_PIECE_COLOR);
+        expect(board.getPieceNameAt(coord)).toBe(name);
+        expect(board.getPieceColorAt(coord)).toBe(BLACK_PIECE_COLOR);
     });
 
     coordsPositionsNullPieces.forEach(([coord, name]) => {
-        expect(board._getPiece(coord).name).toBe(name);
-        expect(board._getPiece(coord).color).toBe(null);
+        expect(board.getPieceNameAt(coord)).toBe(name);
+        expect(board.getPieceColorAt(coord)).toBe(null);
     });
 });
