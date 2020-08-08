@@ -1,15 +1,15 @@
 # js-crazychess-lib
 
-### What is js-crazychess-lib?
+js-crazychess-lib is a (work in progress) library for chess which allows traditional chess, but also some variants which will be played at crazychess website.
 
-js-crazychess-lib is a (work in progress) library for chess which allows both traditional chess, but also some variants which will be played at crazychess website.
+---
 
 ### Installing project and dependencies
 
 js-crazychess-lib uses a few dependencies (Babel and Jest) mainly for testing. In order to install js-crazychess-lib you must:
 - Clone the project.
 - cd into it `cd js-crazychess-lib`.
-- Currently, the only dependencies are used for testing. If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using it.
+- If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using it.
 - Instead, if you want to run the tests, run `yarn install` and `yarn test`.
 
 ### Usage
@@ -30,6 +30,8 @@ If you just want the chess to be a traditional game without any other additional
 - Verify if you have a check position: `board.isCheck();`
 - By convention, **Board methods and attributes that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when a specific thing happens. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
 
+---
+
 ### Features implemented
 
 - Start a chess game (with custom FEN, if you wish so)
@@ -44,6 +46,8 @@ If you just want the chess to be a traditional game without any other additional
 - Checkmate
 - Stalemate
 - If we come up with more features ideas, they will be added here too
+
+---
 
 ### License
 
