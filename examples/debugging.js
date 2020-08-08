@@ -9,4 +9,12 @@ import { _oppositeColor, _algebraicToInts, _intsToAlgebraic } from '../src/helpe
 
 const board = new Board();
 board.showBoard();
-console.log(board._getPiece('a7').isPawn());
+console.log('BEFORE MOVING:');
+console.log(board._getPiece('e2').legalSquares);
+console.log(board._getPiece('e1').legalSquares);
+console.log(board._getPiece('f2').legalSquares);
+console.log('\nAFTER MOVING:')
+board.move('e2', 'e4');
+console.log(board._getPiece('e4').legalSquares);
+console.log(board._getPiece('e1').legalSquares);
+console.log(board._getPiece('f2').legalSquares);

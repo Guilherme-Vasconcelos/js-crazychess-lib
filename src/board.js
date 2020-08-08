@@ -52,10 +52,6 @@ class Board {
                 `at '${initialSquare}'.`);
         }
 
-        // The move method is, currently, using some kind of "lazy evaluation".
-        // Most pieces remain with their legalSquares out of date, and are
-        // only updated for a given piece once the programmer wants to move it.
-        this._updateLegalSquares(initialSquare);
         if (!pieceToMove.legalSquares.has(targetSquare)) {
             throw new Error(`Move ${targetSquare} is not allowed for ` +
                 `piece at ${initialSquare}`);
@@ -83,6 +79,8 @@ class Board {
                 `have a mate position.`);
         }
         this.activeColor = _oppositeColor(pieceToMove.color);
+        // After piece has been moved, update all legal squares.
+        this._updateAllLegalSquares();
     }
 
     /**
@@ -107,14 +105,6 @@ class Board {
      * by some piece, else false.
      */
     isPieceUnderAttack(piecePosition) {
-        // This function is kind of a brute force for now. In order to check
-        // if piece A is under attack, it updates all legal moves from every
-        // piece at the board, then for each piece (of opposite color to A)
-        // verify if the piece being verified has A's position as a legal
-        // square. If so, then A is under attack (by some unspecified piece).
-        // We may want to refine this algorithm in the future if performance
-        // becomes an issue.
-        this._updateAllLegalSquares();
         const pieceToVerify = this._getPiece(piecePosition);
         if (pieceToVerify.isNullPiece()) {
             throw new Error(`Board.isPieceUnderAttack does not work for empty` +
