@@ -80,6 +80,7 @@ class Board {
                 `true.\nConsider calling Board.isCheckmate() to verify if you ` +
                 `have a mate position.`);
         }
+
         this.activeColor = oppositeColor(pieceToMove.color);
     }
 
@@ -155,6 +156,13 @@ class Board {
      * @returns boolean true if position is check, else false.
      */
     isCheck() {
+        if (this.checkless) {
+            throw new Error(`It does not make sense to verify for checks or mates ` +
+                `in a game of type checkless.\nIf you wish not to ignore checks ` +
+                `anymore, change Board's constructor parameter 'checkless' ` +
+                `to false.`);
+        }
+
         switch (this.activeColor) {
             case WHITE_PIECE_COLOR:
                 return this.isPieceUnderAttack(this.getWhiteKingPosition());
@@ -174,12 +182,7 @@ class Board {
         // position. If so, then in the end return true.
         // We may want to refine this algorithm later if performance becomes
         // an issue.
-        if (this.checkless) {
-            throw new Error(`It does not make sense to call Board.isCheckmate() ` +
-                `in a game of type checkless.\nIf you wish not to ignore checks ` +
-                `anymore, change Board's constructor parameter 'checkless' ` +
-                `to false.`);
-        } else if (!this.isCheck()) {
+        if (!this.isCheck()) {
             return false;
         }
         // TODO

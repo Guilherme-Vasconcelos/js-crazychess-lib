@@ -1,5 +1,4 @@
 import Board from '../src/board.js';
-import { oppositeColor, algebraicToInts, intsToAlgebraic } from '../src/helpers.js';
 
 /**
  * This file is mainly used for making sure new functionalities are working
@@ -7,17 +6,6 @@ import { oppositeColor, algebraicToInts, intsToAlgebraic } from '../src/helpers.
  * files you actually need are the ones inside src directory (see usage at README).
  */
 
-const board = new Board();
+const board = new Board({FEN: 'rnb1kbnr/pppp1ppp/8/4p3/4PP1q/8/PPPP2PP/RNBQKBNR w KQkq - 1 3'});
 board.showBoard();
-console.log('BEFORE MOVING:');
-console.log(board._getPiece('e2').legalSquares);
-console.log(board._getPiece('e1').legalSquares);
-console.log(board._getPiece('f2').legalSquares);
-console.log('\nAFTER MOVING:')
-board.move('e2', 'e4');
-console.log(board._getPiece('e4').legalSquares);
-console.log(board._getPiece('e1').legalSquares);
-console.log(board._getPiece('f2').legalSquares);
-board.move('e7', 'e5');
-board.move('f1', 'a6');
-board.move('a7', 'a6');
+console.log(board.isCheck())

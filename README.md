@@ -15,7 +15,7 @@ js-crazychess-lib uses a few dependencies (Babel and Jest) mainly for testing. I
 ### Usage
 
 You can check out examples/main.js to see the main usage, but here are a few steps:
-- Import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory). The code is built so that you only have to import the board.js file, which means after this you are ready to go.
+- Import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory). The code is built so that you only have to import the board.js (the other files such as pieces.js and constants.js still need to exist and be in the same directory, but you don't have to import them), which means after this you are ready to go.
 - Instance board: `const board = new Board();`. The Board class takes as optional parameter an Object. This object has two optional parameters:
   - FEN: Your initial FEN position. If you do not supply this parameter, the game will start with the traditional chess position.
   - checkless: Whether the board should ignore checks or not. This is set to false by default. If you set it to true, the board will no longer consider checks or mates, and the king will become just a regular piece.
@@ -42,6 +42,7 @@ If you just want the chess to be a traditional game without any other additional
 - En passant
 - Pawns promotions
 - Checkmate
+- Stalemate
 - If we come up with more features ideas, they will be added here too
 
 ### License
