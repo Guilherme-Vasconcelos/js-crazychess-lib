@@ -18,3 +18,6 @@ board.move('e2', 'e4');
 console.log(board._getPiece('e4').legalSquares);
 console.log(board._getPiece('e1').legalSquares);
 console.log(board._getPiece('f2').legalSquares);
+board.move('e7', 'e5');
+board.move('f1', 'a6');
+board.move('a7', 'a6');

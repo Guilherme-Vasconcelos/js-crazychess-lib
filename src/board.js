@@ -70,6 +70,8 @@ class Board {
 
         this._placePiece(pieceToMove, targetSquare);
         this._placePiece(new NullPiece(), initialSquare);
+        // After piece has been moved, update all legal squares.
+        this._updateAllLegalSquares();
         if (!this.checkless && this.isCheck()) {
             throw new Error(`Illegal move '${initialSquare}' to ` +
                 `'${targetSquare}' because ${this.activeColor}'s king is or ` +
@@ -79,8 +81,6 @@ class Board {
                 `have a mate position.`);
         }
         this.activeColor = _oppositeColor(pieceToMove.color);
-        // After piece has been moved, update all legal squares.
-        this._updateAllLegalSquares();
     }
 
     /**
