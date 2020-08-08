@@ -9,16 +9,16 @@ js-crazychess-lib is a (work in progress) library for chess which allows both tr
 js-crazychess-lib uses a few dependencies (Babel and Jest) mainly for testing. In order to install js-crazychess-lib you must:
 - Clone the project.
 - cd into it `cd js-crazychess-lib`.
-- Currently, the only dependencies are used for testing. If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using.
+- Currently, the only dependencies are used for testing. If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using it.
 - Instead, if you want to run the tests, run `yarn install` and `yarn test`.
 
 ### Usage
 
 You can check out examples/main.js to see the main usage, but here are a few steps:
-- To import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory). The code is built so that you only have to import the board.js file, which means after this you are ready to go.
+- Import library: `import Board from 'PATH/board.js';` (replace PATH with your path to src directory). The code is built so that you only have to import the board.js file, which means after this you are ready to go.
 - Instance board: `const board = new Board();`. The Board class takes as optional parameter an Object. This object has two optional parameters:
   - FEN: Your initial FEN position. If you do not supply this parameter, the game will start with the traditional chess position.
-  - checkless: Whether the board should ignore checks or not. This is set to false by default. If you wish to set it to true, the board will no longer consider checks or mates, and the king will become just a regular piece.
+  - checkless: Whether the board should ignore checks or not. This is set to false by default. If you set it to true, the board will no longer consider checks or mates, and the king will become just a regular piece.
   - Examples:
     - `const board = new Board({FEN: 'rnbqkbnr/pppp1p1p/8/8/2B1Pp2/5Q2/PPPP2PP/RNB2RK1 b kq - 0 6'});`
     - `const board = new Board();`
@@ -27,6 +27,7 @@ You can check out examples/main.js to see the main usage, but here are a few ste
 If you just want the chess to be a traditional game without any other additional rules, there is no reason to supply any parameters to the Board object constructor other than (possibly) the FEN, if you wish to have a custom position.
 - Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. Keep in mind we still have no support for checks and mates, en passant and castling, plus some features that have been added are still being tested.
 - Show board: `board.showBoard();` will print a text representation of the board.
+- Verify if you have a check position: `board.isCheck();`
 - By convention, **Board methods and attributes that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when a specific thing happens. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
 
 ### Features implemented
