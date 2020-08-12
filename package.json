@@ -17,6 +17,6 @@
     "@babel/preset-env": "^7.10.4"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --collect-coverage"
   }
 }
