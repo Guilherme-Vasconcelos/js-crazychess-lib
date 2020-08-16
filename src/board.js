@@ -783,7 +783,7 @@ class Board {
                 // The lines below are meant to work for both colors of pawns, even
                 // though the logic is slightly different (as described above)
 
-                const rowIncrementValues = { P: -1, p: 1 };
+                const rowIncrementValues = { [WHITE_PAWN_NAME]: -1, [BLACK_PAWN_NAME]: 1 };
                 const pawnMoveValue = rowIncrementValues[pieceToUpdate.name];
                 const rowUp = row + pawnMoveValue;
                 const twoRowsUp = row + 2 * pawnMoveValue;
