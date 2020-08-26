@@ -283,6 +283,15 @@ class Board {
         return '';
     }
 
+
+    /**
+     * Checks if given position at board contains a Pawn.
+     * @param {string} position position to check in algebraic notation.
+     */
+    hasPawnAt(position) {
+        return this._getPiece(position).isPawn();
+    }
+
     /**
      * Checks if kings exist in the given game. Kings are allowed not to exist
      * if it is a checkless game. Otherwise, they are mandatory.
