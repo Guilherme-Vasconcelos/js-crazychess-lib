@@ -11,7 +11,7 @@ function oppositeColor(color) {
         case BLACK_PIECE_COLOR:
             return WHITE_PIECE_COLOR;
         default:
-            throw new Error(`Invalid color ${color}`)
+            throw new Error(`Invalid color ${color}`);
     }
 }
 

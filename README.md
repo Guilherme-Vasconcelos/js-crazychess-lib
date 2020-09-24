@@ -25,7 +25,7 @@ You can check out examples/main.js to see the main usage, but here are a few ste
     - `const board = new Board({checkless: true});`
 
 If you just want the chess to be a traditional game without any other additional rules, there is no reason to supply any parameters to the Board object constructor other than (possibly) the FEN, if you wish to have a custom position.
-- Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. Keep in mind we still have no support for checks and mates, en passant and castling, plus some features that have been added are still being tested.
+- Movements: `board.move('e2', 'e4');` will move the piece from e2 to e4. Keep in mind we still have no support for some important features (see "Features to be implemented" section)
 - Show board: `board.showBoard();` will print a text representation of the board.
 - Verify if you have a check position: `board.isCheck();`
 - By convention, **Board methods and attributes that start with an underline should not be used**, as the library uses them for internal implementations, plus some of them are only updated when a specific thing happens. For example, `Board._currentFEN` is only updated by calling `Board.getCurrentFEN()`.
@@ -65,7 +65,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ### Dependencies licenses
 
-js-crazychess-lib uses Jest and Babel for testing, which are both currently (this is being written on 25/07/2020) licensed under the MIT License.
+js-crazychess-lib uses Jest and Babel for testing, which are both currently (as of 24/09/2020) licensed under the MIT License.
 You can check the repositories here:
 - [Babel](https://github.com/babel/babel/blob/main/LICENSE)
 - [Jest](https://github.com/facebook/jest/blob/master/LICENSE)
