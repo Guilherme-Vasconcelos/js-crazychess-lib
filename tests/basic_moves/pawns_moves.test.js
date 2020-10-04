@@ -1,4 +1,4 @@
-import Board from '../src/board.js';
+import Board from '../../src/board.js';
 
 test('Valid pawns moves at initial position', () => {
     const board = new Board();

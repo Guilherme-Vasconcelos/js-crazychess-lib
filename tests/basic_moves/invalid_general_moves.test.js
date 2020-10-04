@@ -1,4 +1,4 @@
-import Board from '../src/board.js';
+import Board from '../../src/board.js';
 
 test('Move squares that are empty in initial position', () => {
     const board = new Board();

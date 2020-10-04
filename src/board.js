@@ -337,6 +337,18 @@ class Board {
     }
 
     /**
+     * Verifies if moving piece from initialPosition to targetPosition will
+     * result in a check position.
+     * @param {string} initialPosition position where piece is located at
+     * @param {string} targetPosition target position for the desired piece
+     * @returns true if moving the piece will result in check, else false
+     */
+    _willBeCheckAfter(initialPosition, targetPosition) {
+        // TODO
+        return true;
+    }
+
+    /**
      * Checks if kings exist in the given game. Kings are allowed not to exist
      * if it is a checkless game. Otherwise, they are mandatory.
      * @returns boolean true if kings have been found, otherwise throws error
@@ -350,8 +362,6 @@ class Board {
                 'wish to play a checkless game, set the checkless board ' + 
                 'constructor parameter to true.');
         }
-
-        return true;
     }
 
     /**

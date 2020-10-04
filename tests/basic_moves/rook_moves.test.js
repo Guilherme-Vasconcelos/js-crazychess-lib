@@ -1,7 +1,7 @@
-import Board from '../src/board.js';
+import Board from '../../src/board.js';
 import {
     WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_ROOK_NAME, BLACK_ROOK_NAME, NULL_PIECE_NAME
-} from '../src/constants.js';
+} from '../../src/constants.js';
 
 test('Rooks valid general movements with simple position', () => {
     const board = new Board({

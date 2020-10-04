@@ -1,7 +1,7 @@
-import Board from '../src/board.js';
+import Board from '../../src/board.js';
 import {
     WHITE_PIECE_COLOR, BLACK_PIECE_COLOR, WHITE_QUEEN_NAME, BLACK_QUEEN_NAME, NULL_PIECE_NAME
-} from '../src/constants.js';
+} from '../../src/constants.js';
 
 test('Queens valid general moves with a simple position', () => {
     const board = new Board({

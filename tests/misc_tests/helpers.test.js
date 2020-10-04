@@ -1,5 +1,5 @@
-import { oppositeColor, algebraicToInts, intsToAlgebraic} from '../src/helpers.js';
-import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../src/constants.js';
+import { oppositeColor, algebraicToInts, intsToAlgebraic} from '../../src/helpers.js';
+import { WHITE_PIECE_COLOR, BLACK_PIECE_COLOR } from '../../src/constants.js';
 
 test('Valid ints to algebraic conversions', () => {
     const valuesForColumns = {
