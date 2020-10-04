@@ -87,6 +87,7 @@ class Board {
     /**
      * Shows the current board.
      */
+    /* istanbul ignore next */
     showBoard() {
         let output = ''
         for (let i = 0; i < 8; ++i) {
@@ -176,12 +177,6 @@ class Board {
      * @returns boolean true if position is checkmate, else false.
      */
     isCheckmate() {
-        // This algorithm will be some kind of brute force initially too
-        // (just like isPieceUnderAttack). It will move every possible legal
-        // move (for the color being checked) and verify if it's still a check
-        // position. If so, then in the end return true.
-        // We may want to refine this algorithm later if performance becomes
-        // an issue.
         if (!this.isCheck()) {
             return false;
         }
@@ -293,6 +288,13 @@ class Board {
     }
 
     /**
+     * Returns the number of pieces that are on board currently.
+     */
+    getNumberOfPieces() {
+        return this._getAllPieces().length;
+    }
+
+    /**
      * Gets all white pieces that are currently on board.
      * @returns array of Pieces
      */
@@ -351,7 +353,7 @@ class Board {
     /**
      * Checks if kings exist in the given game. Kings are allowed not to exist
      * if it is a checkless game. Otherwise, they are mandatory.
-     * @returns boolean true if kings have been found, otherwise throws error
+     * @returns nothing, but throws error if kings are not found
      */
     _assertKingsExistence() {
         if (
