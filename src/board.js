@@ -29,7 +29,7 @@ class Board {
         this._setFENPosition(FEN);
         this._updateAllLegalSquares();
         if (!checkless) {
-            this._kingsExist();
+            this._assertKingsExistence();
         }
         this.checkless = checkless;
     }
@@ -293,11 +293,55 @@ class Board {
     }
 
     /**
+     * Gets all white pieces that are currently on board.
+     * @returns array of Pieces
+     */
+    _getAllWhitePieces() {
+        const pieces = [];
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                const piece = this._piecesBoard[i][j];
+                if (piece.color === WHITE_PIECE_COLOR) {
+                    pieces.push(piece);
+                }
+            }
+        }
+
+        return pieces;
+    }
+
+    /**
+     * Gets all black pieces that are currently on board.
+     * @returns array of Pieces
+     */
+    _getAllBlackPieces() {
+        const pieces = [];
+        for (let i = 0; i < 8; ++i) {
+            for (let j = 0; j < 8; ++j) {
+                const piece = this._piecesBoard[i][j];
+                if (piece.color === BLACK_PIECE_COLOR) {
+                    pieces.push(piece);
+                }
+            }
+        }
+
+        return pieces;
+    }
+
+    /**
+     * Gets all pieces that are currently on board.
+     * @returns array of Pieces
+     */
+    _getAllPieces() {
+        return [...this._getAllBlackPieces(), ...this._getAllWhitePieces()];
+    }
+
+    /**
      * Checks if kings exist in the given game. Kings are allowed not to exist
      * if it is a checkless game. Otherwise, they are mandatory.
      * @returns boolean true if kings have been found, otherwise throws error
      */
-    _kingsExist() {
+    _assertKingsExistence() {
         if (
             this.getWhiteKingPosition() === '' ||
             this.getBlackKingPosition() === ''

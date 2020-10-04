@@ -8,4 +8,4 @@ import Board from '../src/board.js';
 
 const board = new Board({FEN: 'rnb1kbnr/pppp1ppp/8/4p3/4PP1q/8/PPPP2PP/RNBQKBNR w KQkq - 1 3'});
 board.showBoard();
-console.log(board.isCheck())
+console.log(board._getAllPieces())
