@@ -22,3 +22,9 @@ test('Assert FEN after 1. e4 Nc6', () => {
     board.move('b8', 'c6');
     expect(board.getCurrentFEN()).toBe('r1bqkbnr/pppppppp/2n5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2');
 });
+
+test('Assert setFENPosition correctly throws when FEN contains invalid color', () => {
+    expect(() => {
+        new Board({FEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR o KQkq - 0 1'})
+    }).toThrow('FEN contains invalid color');
+});

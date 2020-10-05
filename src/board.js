@@ -288,7 +288,8 @@ class Board {
     }
 
     /**
-     * Returns the number of pieces that are on board currently.
+     * Returns the number of pieces that are currently on board.
+     * @returns number of pieces currently on board
      */
     getNumberOfPieces() {
         return this._getAllPieces().length;
