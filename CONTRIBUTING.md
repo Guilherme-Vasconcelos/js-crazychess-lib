@@ -7,9 +7,14 @@ We are glad you are interested in contributing! Here you will find a few steps t
 ### Table of contents
 
 [Set-up and installation](#set-up-and-installation)
+
 [Contributing](#contributing)
+
 [Coding conventions](#coding-conventions)
+
 [License](#license)
+
+[References](#references)
 
 ---
 
