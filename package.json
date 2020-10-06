@@ -9,12 +9,9 @@
   "type": "module",
   "devDependencies": {
     "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "babel-jest": "^26.1.0",
     "jest": "^26.1.0"
-  },
-  "dependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/preset-env": "^7.10.4"
   },
   "scripts": {
     "test": "jest",

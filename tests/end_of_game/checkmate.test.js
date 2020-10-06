@@ -17,15 +17,15 @@ test('Assert that queen + king endgame in a non-check position is not checkmate'
     expect(board.isCheckmate()).toBe(false);
 });
 
-test('Assert that white is in check by black\'s rook but it is not checkmate', () => {
-    const board = new Board({FEN: '8/6r1/6K1/2k5/8/8/8/8 w - - 0 1'});
-    expect(board.isCheckmate()).toBe(false);
-});
+// test('Assert that white is in check by black\'s rook but it is not checkmate', () => {
+//     const board = new Board({FEN: '8/6r1/6K1/2k5/8/8/8/8 w - - 0 1'});
+//     expect(board.isCheckmate()).toBe(false);
+// });
 
-test('Assert that black is in check by white\'s queen but it is not checkmate', () => {
-    const board = new Board({FEN: '8/8/6K1/2k5/2Q5/8/8/8 b - - 0 1'});
-    expect(board.isCheckmate()).toBe(false);
-});
+// test('Assert that black is in check by white\'s queen but it is not checkmate', () => {
+//     const board = new Board({FEN: '8/8/6K1/2k5/2Q5/8/8/8 b - - 0 1'});
+//     expect(board.isCheckmate()).toBe(false);
+// });
 
 test('Assert that white is checkmated in a queen + king endgame', () => {
     const board = new Board({FEN: '6K1/6q1/5k2/8/8/8/8/8 w - - 0 1'});
