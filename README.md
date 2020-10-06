@@ -1,3 +1,5 @@
+![Library Tests](https://github.com/Guilherme-Vasconcelos/js-crazychess-lib/workflows/Unit%20Tests/badge.svg)
+
 # js-crazychess-lib
 
 js-crazychess-lib is a (work in progress) library for chess which allows traditional chess, but also some variants which will be played at crazychess website.
