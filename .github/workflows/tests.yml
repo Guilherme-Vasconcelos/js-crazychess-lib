@@ -1,4 +1,4 @@
-name: Library Tests
+name: Unit Tests
 on: push
 jobs:
   build:
