@@ -8,11 +8,10 @@ js-crazychess-lib is a (work in progress) library for chess which allows traditi
 
 ### Installing project and dependencies
 
-js-crazychess-lib uses a few dependencies (Babel and Jest) mainly for testing. In order to install js-crazychess-lib you must:
+In order to install js-crazychess-lib you must:
 - Clone the project.
 - cd into it `cd js-crazychess-lib`.
-- If you are not interested in testing, you do not need to install anything else. Import src/board.js in your project and start using it.
-- Instead, if you want to run the tests, run `yarn install` and `yarn test`.
+- Now you can import src/board.js in your project and start using it.
 
 ### Usage
 
